@@ -14,7 +14,12 @@ class SharedPreferenceUtil(private val context: Context) {
             val json = prefs.getString(PREFS_TOKEN, null) ?: return null
             return Gson().fromJson(json, TokenData::class.java)
         }
-        set(value) = prefs.edit().putString(PREFS_TOKEN, Gson().toJson(value)).apply()
+        set(value) {
+            if (value == null)
+                prefs.edit().remove(PREFS_TOKEN).apply()
+            else
+                prefs.edit().putString(PREFS_TOKEN, Gson().toJson(value)).apply()
+        }
 
     fun clear() {
         prefs.edit().clear().apply()

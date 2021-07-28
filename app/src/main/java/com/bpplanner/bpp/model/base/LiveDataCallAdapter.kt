@@ -1,6 +1,9 @@
 package com.bpplanner.bpp.model.base
 
 import androidx.lifecycle.LiveData
+import com.bpplanner.bpp.MyApp
+import com.bpplanner.bpp.dto.TokenRequest
+import com.bpplanner.bpp.utils.JWT
 import com.bpplanner.bpp.utils.LogUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,47 +19,56 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
     override fun adapt(call: Call<R>): ApiLiveData<R> {
         val liveData = MutableApiLiveData<R>()
         liveData.value = ApiStatus.Loading
+        process(call, liveData)
+        return liveData
+    }
 
+    private fun process(call: Call<R>, liveData: MutableApiLiveData<R>) {
         call.enqueue(object : Callback<R> {
             override fun onFailure(call: Call<R>, t: Throwable) {
                 LogUtil.e("HttpRetrofit", "onFailure", t)
             }
 
             override fun onResponse(call: Call<R>, response: Response<R>) {
-
-                CoroutineScope(Dispatchers.Main).launch {
-
-                    val code = response.code()
-                    if (response.isSuccessful) {
+                val code = response.code()
+                if (response.isSuccessful) {
+                    CoroutineScope(Dispatchers.Main).launch {
                         liveData.value = ApiStatus.Success(code, response.body()!!)
                         return@launch
                     }
-
-                    liveData.value = ApiStatus.Error(code, response.message())
-
-//                    when (response.code()) {
-//                        401 -> {
-//                            Firebase.auth.currentUser?.getIdToken(true)
-//                                ?.addOnSuccessListener {
-//                                    process(call, liveData)
-//                                }
-//                                ?.addOnFailureListener {
-//                                    liveData.value = ApiStatus.Error(code, response.message())
-//                                }
-//                        }
-//                        else -> {
-//                            // Error 처리
-//                        }
-//                    }
-
                 }
+                when (response.code()) {
+                    401 -> {
+                        val token = MyApp.getPrefs().token!!
+                        MyApp.getPrefs().token = null
+                        val userId = JWT.getUserId(token.access)
+                        val authResult = RestClient.getAuthService()
+                            .newToken(TokenRequest(userId, token.refresh!!)).execute()
+
+                        if (authResult.isSuccessful) {
+                            val newToken = authResult.body()!!
+                            if (newToken.refresh == null) newToken.refresh = token.refresh
+                            MyApp.getPrefs().token = token
+
+                            process(call, liveData)
+                        } else {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                liveData.value =
+                                    ApiStatus.Error(authResult.code(), authResult.message())
+                                return@launch
+                            }
+                        }
+                    }
+                    else -> {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            liveData.value = ApiStatus.Error(code, response.message())
+                            return@launch
+                        }
+                    }
+                }
+
             }
         })
-
-        return liveData
-    }
-
-    private fun process(call: Call<R>, liveData: MutableApiLiveData<R>) {
     }
 
     class Factory : CallAdapter.Factory() {
