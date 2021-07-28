@@ -7,10 +7,13 @@ import com.bpplanner.bpp.databinding.ItemHomeHeaderBinding
 import com.bpplanner.bpp.databinding.ItemHomeShopBinding
 import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.dto.ShopList
+import com.bpplanner.bpp.utils.LogUtil
 import com.bumptech.glide.Glide
 
 class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list: List<ShopData>? = null
+
+    private var onHeaderItemClick: OnHeaderItemClick? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -51,15 +54,29 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         this.list = list
     }
 
+    fun setOnHeaderItemClick(listener: OnHeaderItemClick){
+        onHeaderItemClick = listener
+    }
+
     private fun getItem(position: Int): ShopData {
         return list!![position - 1]
     }
 
 
+    interface OnHeaderItemClick{
+        fun onLikeClick()
+        fun onFilterClick()
+    }
+
     inner class HeaderViewHolder(val binding: ItemHomeHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-
+            binding.like.setOnClickListener {
+                onHeaderItemClick?.onLikeClick()
+            }
+            binding.filter.setOnClickListener {
+                onHeaderItemClick?.onFilterClick()
+            }
         }
     }
 

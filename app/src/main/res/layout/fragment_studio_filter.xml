@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_sheet"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp">
+
+    <TextView
+            style="@style/Text.Emphasize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/studio_filter_title" />
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="100dp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            style="@style/Text.Emphasize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_bottom_button"
+            android:text="@string/all_select"
+            android:textColor="@color/white" />
+</LinearLayout>

@@ -5,6 +5,7 @@
         android:layout_height="wrap_content">
 
     <com.google.android.material.chip.Chip
+            android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
@@ -17,6 +18,7 @@
             app:textEndPadding="12dp" />
 
     <com.google.android.material.chip.Chip
+            android:id="@+id/filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.setPadding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +13,7 @@ import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
+import com.bpplanner.bpp.utils.LogUtil
 
 class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
     private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
@@ -31,6 +31,8 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
             }
         }
     }
+
+    private val bottomSheetFilter by lazy { BottomSheetFilter() }
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -61,6 +63,18 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
             )
             it.recyclerview.adapter = loadingAdapter
         }
+
+        adapter.setOnHeaderItemClick(object : HomeListAdapter.OnHeaderItemClick {
+            override fun onLikeClick() {
+
+            }
+
+            override fun onFilterClick() {
+                bottomSheetFilter.show(childFragmentManager, null)
+            }
+
+        })
+
 
         viewModel.listLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
