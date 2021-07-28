@@ -10,20 +10,15 @@ class PageLoader<T> {
     private val mediatorLiveData = MediatorApiLiveData<List<T>>()
     val liveData: ApiLiveData<List<T>> = mediatorLiveData
 
-    private var totalCount: Int? = null
-    var page = 0
+    var isFinish = false
+        private set
 
-    fun isInit(): Boolean {
-        return totalCount == null
-    }
+    var page = 1
 
-    fun isFinish(): Boolean {
-        return totalCount != null && list.size >= totalCount!!
-    }
 
     fun canLoadList(): Boolean {
         if (mediatorLiveData.value is ApiStatus.Loading) return false
-        if (isFinish()) return false
+        if (isFinish) return false
 
         return true
     }
@@ -40,26 +35,26 @@ class PageLoader<T> {
             }
 
             override fun onSuccess(code: Int, data: C) {
-                completeLoad(data.getTotalCount(), data.getList(), code)
+                isFinish = true
+                list.addAll(data.getList())
+                mediatorLiveData.value = ApiStatus.Success(code, list)
+
                 callback?.onSuccess(code, data)
             }
 
             override fun onError(code: Int, msg: String) {
+                if (code == 404) isFinish = true
+
                 mediatorLiveData.value = ApiStatus.Error(code, msg)
                 callback?.onError(code, msg)
             }
         })
     }
 
-    fun completeLoad(totalCount: Int, l: List<T>, code: Int = 200) {
-        this.totalCount = totalCount
-        list.addAll(l)
-        mediatorLiveData.value = ApiStatus.Success(code, list)
-    }
 
     fun reset() {
         page = 0
-        totalCount = null
+        isFinish = false
         list.clear()
     }
 

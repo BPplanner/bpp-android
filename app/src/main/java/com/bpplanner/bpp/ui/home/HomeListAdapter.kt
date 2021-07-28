@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bpplanner.bpp.databinding.ItemHomeHeaderBinding
 import com.bpplanner.bpp.databinding.ItemHomeShopBinding
+import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.dto.ShopList
+import com.bumptech.glide.Glide
 
 class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var list: List<ShopList>? = null
+    private var list: List<ShopData>? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -41,18 +43,16 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is HeaderViewHolder -> holder.binding.run {
 
             }
-            is ShopViewHolder -> holder.binding.run {
-
-            }
+            is ShopViewHolder -> holder.bind(getItem(position))
         }
     }
 
-    fun setData(list: List<ShopList>) {
+    fun setData(list: List<ShopData>) {
         this.list = list
     }
 
-    private fun getItem(position: Int): ShopList {
-        return list!![position]
+    private fun getItem(position: Int): ShopData {
+        return list!![position - 1]
     }
 
 
@@ -67,6 +67,16 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         init {
 
+        }
+
+        fun bind(data: ShopData){
+            Glide.with(binding.img)
+                .load(data.profileImg)
+                .into(binding.img)
+
+            binding.name.text = data.name
+            binding.address.text = data.address
+            binding.price.text = "${data.minPrice} ~"
         }
     }
 

@@ -2,24 +2,19 @@ package com.bpplanner.bpp.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.dto.ShopList
 import com.bpplanner.bpp.model.base.ApiLiveData
+import com.bpplanner.bpp.utils.pagination.IPageLoaderViewModel
 import com.bpplanner.bpp.utils.pagination.PageLoader
+import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeViewModel(private val index: Int) : ViewModel() {
+class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel {
     private val repository = HomeRepository()
-    private val pageLoader = PageLoader<ShopList>()
-    val listLiveData: ApiLiveData<List<ShopList>> = pageLoader.liveData
+    private val pageLoader = PageLoader<ShopData>()
+    val listLiveData: ApiLiveData<List<ShopData>> = pageLoader.liveData
 
-    fun initList(): Boolean {
-        if (pageLoader.isInit()) {
-            loadList()
-            return true
-        }
-        return false
-    }
-
-    fun loadList() {
+    override fun loadList() {
         if (!pageLoader.canLoadList()) return
 
         val liveData =
@@ -28,11 +23,11 @@ class HomeViewModel(private val index: Int) : ViewModel() {
                 else -> repository.getShopList(pageLoader.page++, arrayOf())
             }
 
-//        pageLoader.addObserve(liveData)
+        pageLoader.addObserve(liveData)
     }
 
-    fun isFinishLoading(): Boolean {
-        return pageLoader.isFinish()
+    override fun isFinishList(): Boolean {
+        return pageLoader.isFinish
     }
 
     class Factory(private val param: Int) : ViewModelProvider.Factory {

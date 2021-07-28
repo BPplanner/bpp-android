@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.setPadding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.RecyclerviewBinding
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
+import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 
 class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
@@ -39,8 +42,23 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding?.let {
-            it.recyclerview.layoutManager = LinearLayoutManager(context)
+            it.recyclerview.layoutManager = GridLayoutManager(context, 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (position) {
+                            0, adapter.itemCount -> 2
+                            else -> 1
+                        }
+                    }
+                }
+            }
+            it.recyclerview.addItemDecoration(
+                SpacesItemDecoration(
+                    resources.getDimension(R.dimen.item_space).toInt()
+                )
+            )
             it.recyclerview.adapter = loadingAdapter
         }
 
@@ -48,11 +66,11 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
             when (it) {
                 is ApiStatus.Success -> {
                     adapter.setData(it.data)
-                    loadingAdapter.setVisibleLoading(!viewModel.isFinishLoading())
+                    loadingAdapter.setVisibleLoading(!viewModel.isFinishList())
                     loadingAdapter.notifyDataSetChanged()
                 }
                 is ApiStatus.Error -> {
-
+                    loadingAdapter.setVisibleLoading(!viewModel.isFinishList())
                 }
             }
         })
