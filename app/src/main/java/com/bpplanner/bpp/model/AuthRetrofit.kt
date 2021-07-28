@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface AuthRetrofit {
 
-    @POST("/login/new-tokens/")
+    @POST("/login/new-token/")
     fun login(@Body token: TokenRequest): ApiLiveData<TokenData>
 
     @POST("/login/token/refresh/")

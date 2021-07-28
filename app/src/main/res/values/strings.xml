@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Bpp</string>
 
+    <string name="auth_title"><b>바프플래너</b>에서\n바디프로필을 한눈에</string>
+
+    <string name="all_studio">스튜디오</string>
+    <string name="all_makeup">헤어메이크업</string>
 </resources>

@@ -1,12 +1,18 @@
 package com.bpplanner.bpp.ui.launch
 
+import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivityAuthBinding
-import com.bpplanner.bpp.ui.base.BaseActivity
+import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bpplanner.bpp.model.base.ApiStatus
+import com.bpplanner.bpp.ui.home.HomeActivity
 import com.kakao.sdk.user.UserApiClient
 
 class AuthActivity : BaseActivity() {
@@ -19,7 +25,16 @@ class AuthActivity : BaseActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btn.setOnClickListener {
+
+
+        binding.title.text = getText(R.string.auth_title)
+
+        binding.videoView.setVideoURI(Uri.parse("android.resource://${packageName}/${R.raw.login}"))
+        binding.videoView.setOnPreparedListener {
+            it.isLooping = true
+        }
+
+        binding.btnKakao.setOnClickListener {
             UserApiClient.instance.loginWithKakaoTalk(this@AuthActivity) { token, error ->
                 if (error != null) {
                     Log.e("KakaoAuth", "로그인 실패", error)
@@ -30,14 +45,19 @@ class AuthActivity : BaseActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.videoView.start()
+    }
+
     private fun login(token : String) {
         viewModel.loginKakao(token).observe(this, Observer {
             when (it) {
                 is ApiStatus.Success ->{
-                    binding.txt.text = it.toString()
+                    val intent = Intent(this@AuthActivity, HomeActivity::class.java)
+                    startActivity(intent)
                 }
             }
         })
-
     }
 }
