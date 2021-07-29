@@ -20,8 +20,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.launch.AuthActivity" />
-        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.home.HomeFragment" />
 
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>

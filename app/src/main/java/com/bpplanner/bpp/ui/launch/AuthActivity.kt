@@ -1,10 +1,8 @@
 package com.bpplanner.bpp.ui.launch
 
 import android.content.Intent
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +10,8 @@ import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivityAuthBinding
 import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bpplanner.bpp.model.base.ApiStatus
-import com.bpplanner.bpp.ui.home.HomeActivity
+import com.bpplanner.bpp.ui.MainActivity
+import com.bpplanner.bpp.ui.home.HomeFragment
 import com.kakao.sdk.user.UserApiClient
 
 class AuthActivity : BaseActivity() {
@@ -54,7 +53,7 @@ class AuthActivity : BaseActivity() {
         viewModel.loginKakao(token).observe(this, Observer {
             when (it) {
                 is ApiStatus.Success ->{
-                    val intent = Intent(this@AuthActivity, HomeActivity::class.java)
+                    val intent = Intent(this@AuthActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
             }

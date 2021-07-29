@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home"
+        android:title="메인" />
+
+    <item
+        android:id="@+id/menu_concept"
+        android:icon="@drawable/ic_concept"
+        android:title="컨셉보기" />
+
+    <item
+        android:id="@+id/menu_mypage"
+        android:icon="@drawable/ic_mypage"
+        android:title="마이페이지" />
+</menu>

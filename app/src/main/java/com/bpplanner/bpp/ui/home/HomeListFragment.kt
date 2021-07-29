@@ -27,7 +27,7 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
     private val loadingAdapter by lazy {
         LoadingRecyclerViewAdapter(adapter).apply {
             setOnBindLoadingListener {
-                viewModel.loadList()
+//                viewModel.loadList()
             }
         }
     }
