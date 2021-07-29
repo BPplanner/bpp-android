@@ -53,9 +53,10 @@ class PageLoader<T> {
 
 
     fun reset() {
-        page = 0
+        page = 1
         isFinish = false
         list.clear()
+        mediatorLiveData.value = ApiStatus.Success(200, list)
     }
 
     fun getList(): List<T> = list

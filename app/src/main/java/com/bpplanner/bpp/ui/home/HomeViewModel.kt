@@ -13,6 +13,8 @@ import com.bpplanner.bpp.utils.pagination.PageLoader
 class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel {
     private val repository = HomeRepository()
     private val pageLoader = PageLoader<ShopData>()
+    private var filterList: List<String>? = null
+
     val listLiveData: ApiLiveData<List<ShopData>> = pageLoader.liveData
 
     override fun loadList() {
@@ -20,8 +22,8 @@ class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel 
 
         val liveData =
             when (index) {
-                1 -> repository.getBeautyList(pageLoader.page++, arrayOf())
-                else -> repository.getShopList(pageLoader.page++, arrayOf())
+                1 -> repository.getBeautyList(pageLoader.page++, filterList)
+                else -> repository.getShopList(pageLoader.page++, filterList)
             }
 
         pageLoader.addObserve(liveData)
@@ -36,6 +38,16 @@ class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel 
             1 -> MyApp.getRemoteConfig().beautyFilterList
             else -> MyApp.getRemoteConfig().studioFilterList
         }
+    }
+
+    fun setFilter(arr: List<String>){
+        reset()
+        filterList = arr
+        loadList()
+    }
+
+    private fun reset(){
+        pageLoader.reset()
     }
 
     class Factory(private val param: Int) : ViewModelProvider.Factory {

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.children
 import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ChipFilterBinding
 import com.bpplanner.bpp.databinding.FragmentStudioFilterBinding
-import com.bpplanner.bpp.ui.launch.LaunchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
@@ -36,8 +36,19 @@ open class BottomSheetFilter : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.let { b ->
 
-            for (item in viewModel.getFilterList()){
-                createChip(b.chipGroup, item.value)
+            for (item in viewModel.getFilterList()) {
+                val chip = createChip(b.chipGroup, item.value)
+                chip.tag = item.id
+            }
+
+            b.btn.setOnClickListener {
+                val list = mutableListOf<String>()
+                for (chip in b.chipGroup.children) {
+                    chip as? Chip ?: continue
+                    if (chip.isChecked) list.add(chip.tag.toString())
+                }
+                viewModel.setFilter(list)
+                dismiss()
             }
 
         }
