@@ -2,6 +2,7 @@ package com.bpplanner.bpp.utils
 
 import android.content.Context
 import com.bpplanner.bpp.BuildConfig
+import com.bpplanner.bpp.dto.ConceptFilter
 import com.bpplanner.bpp.dto.IdValuePair
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -36,11 +37,17 @@ class RemoteConfigUtil(private val context: Context) {
             return Gson().fromJson(str, Array<IdValuePair>::class.java)
         }
 
+    val conceptFilter: ConceptFilter
+        get() {
+            val str = remoteConfig.getString(CONCEPT_FILTER)
+            return Gson().fromJson(str, ConceptFilter::class.java)
+        }
+
 
     companion object {
         private const val BEAUTY_FILTER = "beauty_filter"
-        private const val CONCEPT_FILTER = "concept_filter"
         private const val STUDIO_FILTER = "studio_filter"
+        private const val CONCEPT_FILTER = "concept_filter"
     }
 
 }

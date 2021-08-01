@@ -2,8 +2,15 @@
     <string name="app_name">Bpp</string>
 
     <string name="auth_title"><b>바프플래너</b>에서\n바디프로필을 한눈에</string>
+    <string name="concept_title">원하는 컨셉의\n스튜디오를 찾아보세요</string>
 
     <string name="studio_filter_title">스튜디오 지역 선택</string>
+    <string name="concept_filter_title">컨셉 필터</string>
+    <string name="concept_filter_person">인원</string>
+    <string name="concept_filter_gender">성별</string>
+    <string name="concept_filter_background">배경</string>
+    <string name="concept_filter_props">소품</string>
+    <string name="concept_filter_cloth">의상</string>
 
     <string name="all_studio">스튜디오</string>
     <string name="all_makeup">헤어메이크업</string>

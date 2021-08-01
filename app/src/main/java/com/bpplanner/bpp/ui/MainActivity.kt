@@ -5,13 +5,14 @@ import android.view.MenuItem
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivityMainBinding
 import com.bpplanner.bpp.ui.common.base.BaseActivity
+import com.bpplanner.bpp.ui.concept.ConceptFragment
 import com.bpplanner.bpp.ui.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private val homeFragment by lazy { HomeFragment() }
-    private val conceptFragment by lazy { HomeFragment() }
+    private val conceptFragment by lazy { ConceptFragment() }
     private val myPageFragment by lazy { HomeFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

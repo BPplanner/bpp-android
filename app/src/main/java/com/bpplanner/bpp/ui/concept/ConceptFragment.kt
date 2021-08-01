@@ -1,4 +1,4 @@
-package com.bpplanner.bpp.ui.home
+package com.bpplanner.bpp.ui.concept
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,21 +8,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
-import com.bpplanner.bpp.databinding.RecyclerviewBinding
+import com.bpplanner.bpp.databinding.FragmentConceptBinding
+import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
-import com.bpplanner.bpp.utils.LogUtil
 
-class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
-    private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
+class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
     private val viewModel by lazy {
-        ViewModelProvider(this, HomeViewModel.Factory(index))
-            .get(HomeViewModel::class.java)
+        ViewModelProvider(this).get(ConceptViewModel::class.java)
     }
     private val adapter by lazy {
-        HomeListAdapter()
+        ConceptListAdapter()
     }
     private val loadingAdapter by lazy {
         LoadingRecyclerViewAdapter(adapter).apply {
@@ -31,54 +29,56 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
             }
         }
     }
+    private val filterSheet by lazy { ConceptFilterSheet() }
 
-    private val bottomSheetFilter by lazy { BottomSheetFilter() }
 
     override fun createViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): RecyclerviewBinding {
-        return RecyclerviewBinding.inflate(inflater, container, false)
+    ): FragmentConceptBinding {
+        return FragmentConceptBinding.inflate(layoutInflater)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.let {
-            it.recyclerview.layoutManager = GridLayoutManager(context, 2).apply {
+        binding?.let { b ->
+
+            b.recyclerView.layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return when (position) {
-                            0 -> 2
-                            adapter.itemCount -> {
-                                if (viewModel.isFinishList()) 1
-                                else 2
-                            }
-                            else -> 1
-                        }
+                        return if (position == adapter.itemCount && !viewModel.isFinishList()) 2
+                        else 1
                     }
                 }
             }
-            it.recyclerview.addItemDecoration(
+
+            b.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
                     resources.getDimension(R.dimen.item_space).toInt()
                 )
             )
-            it.recyclerview.adapter = loadingAdapter
+            b.recyclerView.adapter = loadingAdapter
+
+            b.btnFilter.setOnClickListener {
+                filterSheet.show(childFragmentManager, null)
+            }
+
+            b.btnLike.setOnCheckedChangeListener { _, value ->
+                viewModel.setLikeFilter(value)
+            }
         }
 
-        adapter.setOnHeaderItemClick(object : HomeListAdapter.OnHeaderItemClick {
-            override fun onLikeClick() {
+        adapter.setOnItemClick(object : ConceptListAdapter.OnItemClick{
+            override fun onItemClick(position: Int, item: ConceptData) {
 
             }
 
-            override fun onFilterClick() {
-                bottomSheetFilter.show(childFragmentManager, null)
+            override fun onLikeClick(position: Int, item: ConceptData) {
+                viewModel.setLikeConcept(item)
             }
 
         })
-
 
         viewModel.listLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -94,15 +94,4 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
         })
     }
 
-    companion object {
-        private const val ARGUMENT_INDEX = "ARGUMENT_INDEX"
-
-        fun create(category: Int): HomeListFragment {
-            val fragment = HomeListFragment()
-            fragment.arguments = Bundle().apply {
-                putInt(ARGUMENT_INDEX, category)
-            }
-            return fragment
-        }
-    }
 }

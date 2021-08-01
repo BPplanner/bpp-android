@@ -3,6 +3,7 @@ package com.bpplanner.bpp.model.base
 import com.bpplanner.bpp.BuildConfig
 import com.bpplanner.bpp.MyApp
 import com.bpplanner.bpp.model.AuthRetrofit
+import com.bpplanner.bpp.model.ConceptRetrofit
 import com.bpplanner.bpp.model.ShopRetrofit
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -15,6 +16,7 @@ object RestClient {
 
     fun getAuthService(): AuthRetrofit = retrofit.create(AuthRetrofit::class.java)
     fun getShopService(): ShopRetrofit = retrofit.create(ShopRetrofit::class.java)
+    fun getConceptService(): ConceptRetrofit = retrofit.create(ConceptRetrofit::class.java)
 
     private val retrofit =
         Retrofit.Builder().run {
