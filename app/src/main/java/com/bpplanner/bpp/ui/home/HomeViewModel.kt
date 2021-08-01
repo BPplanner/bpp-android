@@ -3,27 +3,41 @@ package com.bpplanner.bpp.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.MyApp
-import com.bpplanner.bpp.dto.IdValuePair
+import com.bpplanner.bpp.dto.IdValuePairCheckable
 import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.model.base.ApiLiveData
-import com.bpplanner.bpp.utils.RemoteConfigUtil
 import com.bpplanner.bpp.utils.pagination.IPageLoaderViewModel
 import com.bpplanner.bpp.utils.pagination.PageLoader
 
 class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel {
     private val repository = HomeRepository()
     private val pageLoader = PageLoader<ShopData>()
-    private var filterList: List<String>? = null
+
+    private val beautyFilter: Array<IdValuePairCheckable> by lazy {
+        MyApp.getRemoteConfig().beautyFilterList
+    }
+    private val studioFilter: Array<IdValuePairCheckable> by lazy {
+        MyApp.getRemoteConfig().studioFilterList
+    }
+    private var likeFilter = false
+
 
     val listLiveData: ApiLiveData<List<ShopData>> = pageLoader.liveData
 
     override fun loadList() {
         if (!pageLoader.canLoadList()) return
 
+        val filterList =
+            when (index) {
+                1 -> beautyFilter
+                else -> studioFilter
+            }.filter { it.checked }
+                .map { it.id }
+
         val liveData =
             when (index) {
-                1 -> repository.getBeautyList(pageLoader.page++, filterList)
-                else -> repository.getShopList(pageLoader.page++, filterList)
+                1 -> repository.getBeautyList(pageLoader.page++, likeFilter, filterList)
+                else -> repository.getShopList(pageLoader.page++, likeFilter, filterList)
             }
 
         pageLoader.addObserve(liveData)
@@ -33,21 +47,22 @@ class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel 
         return pageLoader.isFinish
     }
 
-    fun getFilterList(): Array<IdValuePair> {
+    fun getFilterList(): Array<IdValuePairCheckable> {
         return when (index) {
-            1 -> MyApp.getRemoteConfig().beautyFilterList
-            else -> MyApp.getRemoteConfig().studioFilterList
+            1 -> beautyFilter
+            else -> studioFilter
         }
     }
 
-    fun setFilter(arr: List<String>){
+    fun setLikeFilter(value: Boolean){
+        likeFilter = value
         reset()
-        filterList = arr
         loadList()
     }
 
-    private fun reset(){
+    fun reset() {
         pageLoader.reset()
+        loadList()
     }
 
     class Factory(private val param: Int) : ViewModelProvider.Factory {

@@ -13,7 +13,6 @@ import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
-import com.bpplanner.bpp.utils.LogUtil
 
 class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
     private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
@@ -32,7 +31,7 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
         }
     }
 
-    private val bottomSheetFilter by lazy { BottomSheetFilter() }
+    private val bottomSheetFilter by lazy { AddressFilterSheet() }
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -69,8 +68,8 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
         }
 
         adapter.setOnHeaderItemClick(object : HomeListAdapter.OnHeaderItemClick {
-            override fun onLikeClick() {
-
+            override fun onLikeClick(value: Boolean) {
+                viewModel.setLikeFilter(value)
             }
 
             override fun onFilterClick() {

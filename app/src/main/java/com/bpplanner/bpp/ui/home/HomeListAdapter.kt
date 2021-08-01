@@ -64,7 +64,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     interface OnHeaderItemClick{
-        fun onLikeClick()
+        fun onLikeClick(value: Boolean)
         fun onFilterClick()
     }
 
@@ -72,7 +72,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.like.setOnClickListener {
-                onHeaderItemClick?.onLikeClick()
+                onHeaderItemClick?.onLikeClick(binding.like.isChecked)
             }
             binding.filter.setOnClickListener {
                 onHeaderItemClick?.onFilterClick()

@@ -4,6 +4,7 @@ import android.content.Context
 import com.bpplanner.bpp.BuildConfig
 import com.bpplanner.bpp.dto.ConceptFilter
 import com.bpplanner.bpp.dto.IdValuePair
+import com.bpplanner.bpp.dto.IdValuePairCheckable
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
@@ -24,17 +25,17 @@ class RemoteConfigUtil(private val context: Context) {
 
     }
 
-    val studioFilterList: Array<IdValuePair>
+    val studioFilterList: Array<IdValuePairCheckable>
         get() {
             val str = remoteConfig.getString(STUDIO_FILTER)
             LogUtil.d("BPP", remoteConfig.getValue(STUDIO_FILTER).toString())
-            return Gson().fromJson(str, Array<IdValuePair>::class.java)
+            return Gson().fromJson(str, Array<IdValuePairCheckable>::class.java)
         }
 
-    val beautyFilterList: Array<IdValuePair>
+    val beautyFilterList: Array<IdValuePairCheckable>
         get() {
             val str = remoteConfig.getString(BEAUTY_FILTER)
-            return Gson().fromJson(str, Array<IdValuePair>::class.java)
+            return Gson().fromJson(str, Array<IdValuePairCheckable>::class.java)
         }
 
     val conceptFilter: ConceptFilter

@@ -13,7 +13,7 @@ import com.bpplanner.bpp.databinding.FragmentStudioFilterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
-open class BottomSheetFilter : BottomSheetDialogFragment() {
+open class AddressFilterSheet : BottomSheetDialogFragment() {
     private var binding: FragmentStudioFilterBinding? = null
     private val viewModel by lazy { ViewModelProvider(requireParentFragment()).get(HomeViewModel::class.java) }
 
@@ -39,15 +39,21 @@ open class BottomSheetFilter : BottomSheetDialogFragment() {
             for (item in viewModel.getFilterList()) {
                 val chip = createChip(b.chipGroup, item.value)
                 chip.tag = item.id
+                chip.isChecked = item.checked
             }
 
             b.btn.setOnClickListener {
                 val list = mutableListOf<String>()
                 for (chip in b.chipGroup.children) {
                     chip as? Chip ?: continue
-                    if (chip.isChecked) list.add(chip.tag.toString())
+                    for (item in viewModel.getFilterList()) {
+                        if (chip.tag == item.id) {
+                            item.checked = chip.isChecked
+                            break
+                        }
+                    }
                 }
-                viewModel.setFilter(list)
+                viewModel.reset()
                 dismiss()
             }
 

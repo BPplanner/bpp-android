@@ -10,12 +10,14 @@ interface ShopRetrofit {
     @GET("/shops/studios/")
     fun getStudioList(
         @Query("page") page: Int,
+        @Query("like") like: Boolean,
         @Query("address") address: List<String>?
     ): ApiLiveData<ShopList>
 
     @GET("/shops/beautyshops/")
     fun getBeautyList(
         @Query("page") page: Int,
+        @Query("like") like: Boolean,
         @Query("address") address: List<String>?
     ): ApiLiveData<ShopList>
 

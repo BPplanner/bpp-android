@@ -8,11 +8,11 @@ import com.bpplanner.bpp.model.base.RestClient
 class HomeRepository {
     private val service by lazy { RestClient.getShopService() }
 
-    fun getShopList(page: Int, address: List<String>?) : ApiLiveData<ShopList>{
-        return service.getStudioList(page, address)
+    fun getShopList(page: Int, like: Boolean, address: List<String>?): ApiLiveData<ShopList> {
+        return service.getStudioList(page, like, address)
     }
 
-    fun getBeautyList(page: Int, address: List<String>?) : ApiLiveData<ShopList>{
-        return service.getBeautyList(page, address)
+    fun getBeautyList(page: Int, like: Boolean, address: List<String>?): ApiLiveData<ShopList> {
+        return service.getBeautyList(page, like, address)
     }
 }

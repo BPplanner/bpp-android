@@ -1,5 +1,6 @@
 package com.bpplanner.bpp.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.bpplanner.bpp.dto.TokenData
 import com.google.gson.Gson
@@ -14,11 +15,12 @@ class SharedPreferenceUtil(private val context: Context) {
             val json = prefs.getString(PREFS_TOKEN, null) ?: return null
             return Gson().fromJson(json, TokenData::class.java)
         }
+        @SuppressLint("ApplySharedPref")
         set(value) {
             if (value == null)
-                prefs.edit().remove(PREFS_TOKEN).apply()
+                prefs.edit().remove(PREFS_TOKEN).commit()
             else
-                prefs.edit().putString(PREFS_TOKEN, Gson().toJson(value)).apply()
+                prefs.edit().putString(PREFS_TOKEN, Gson().toJson(value)).commit()
         }
 
     fun clear() {
