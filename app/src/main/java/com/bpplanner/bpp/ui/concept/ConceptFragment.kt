@@ -61,7 +61,8 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
             b.recyclerView.adapter = loadingAdapter
 
             b.btnFilter.setOnClickListener {
-                filterSheet.show(childFragmentManager, null)
+                if (!filterSheet.isVisible)
+                    filterSheet.show(childFragmentManager, null)
             }
 
             b.btnLike.setOnCheckedChangeListener { _, value ->

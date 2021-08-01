@@ -73,7 +73,8 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
             }
 
             override fun onFilterClick() {
-                bottomSheetFilter.show(childFragmentManager, null)
+                if(!bottomSheetFilter.isVisible)
+                    bottomSheetFilter.show(childFragmentManager, null)
             }
 
         })
