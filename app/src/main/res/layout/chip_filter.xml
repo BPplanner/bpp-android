@@ -9,7 +9,7 @@
         android:textAppearance="@style/Text.Date"
         android:textColor="@color/chip_text"
         app:checkedIconVisible="false"
-        app:textStartPadding="12dp"
-        app:textEndPadding="12dp"
         app:chipBackgroundColor="@color/bg_chip"
+        app:textEndPadding="12dp"
+        app:textStartPadding="12dp"
         tools:text="000" />

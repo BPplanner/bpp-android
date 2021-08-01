@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ChipFilterBinding
 import com.bpplanner.bpp.databinding.FragmentConceptFilterBinding
+import com.bpplanner.bpp.dto.ConceptFilter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
@@ -34,7 +35,8 @@ open class ConceptFilterSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.let { b ->
-            val data = viewModel.conceptFilter
+            val data = viewModel.conceptFilter.value!!.copy()
+
             for (item in data.numPerson) {
                 val chip = createChip(b.chipGroupPerson, item.value)
                 chip.tag = item.id
@@ -148,7 +150,7 @@ open class ConceptFilterSheet : BottomSheetDialogFragment() {
                     }
                 }
 
-                viewModel.reset()
+                viewModel.setConceptFilter(data)
                 dismiss()
             }
 

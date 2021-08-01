@@ -47,20 +47,28 @@
             android:background="#E6E6E6"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/filter_group"
+    <HorizontalScrollView
+            android:id="@+id/filter_group_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:scrollbars="none"
             app:layout_constraintTop_toTopOf="@id/line"
-            app:singleLine="true" />
+            android:overScrollMode="never"
+            >
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filter_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:singleLine="true" />
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filter_group" />
+            app:layout_constraintTop_toBottomOf="@id/filter_group_scroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
