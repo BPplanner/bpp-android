@@ -65,6 +65,32 @@ open class ConceptFilterSheet : BottomSheetDialogFragment() {
                 chip.isChecked = item.checked
             }
 
+            b.btnReset.setOnClickListener {
+                for (chip in b.chipGroupPerson.children) {
+                    chip as? Chip ?: continue
+                    chip.isChecked = false
+                }
+
+                for (chip in b.chipGroupGender.children) {
+                    chip as? Chip ?: continue
+                    chip.isChecked = false
+                }
+
+                for (chip in b.chipGroupBackground.children) {
+                    chip as? Chip ?: continue
+                    chip.isChecked = false
+                }
+
+                for (chip in b.chipGroupProps.children) {
+                    chip as? Chip ?: continue
+                    chip.isChecked = false
+                }
+
+                for (chip in b.chipGroupCloth.children) {
+                    chip as? Chip ?: continue
+                    chip.isChecked = false
+                }
+            }
 
             b.btn.setOnClickListener {
                 for (chip in b.chipGroupPerson.children) {

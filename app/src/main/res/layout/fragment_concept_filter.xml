@@ -1,92 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_sheet"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="24dp">
-
-    <TextView
-            style="@style/Text.Emphasize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/concept_filter_title" />
-
-
-    <TextView
-            style="@style/Text.Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/concept_filter_person" />
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_person"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    <TextView
-            style="@style/Text.Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/concept_filter_gender" />
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    <TextView
-            style="@style/Text.Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/concept_filter_background" />
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    <TextView
-            style="@style/Text.Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/concept_filter_props" />
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_props"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    <TextView
-            style="@style/Text.Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/concept_filter_cloth" />
-
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_cloth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn"
-            style="@style/Text.Emphasize"
+            android:id="@+id/btn_reset"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="right|top"
+            android:background="@drawable/ic_reset" />
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_bottom_button"
-            android:text="@string/all_select"
-            android:textColor="@color/white" />
-</LinearLayout>
+            android:background="@drawable/bg_bottom_sheet"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
+
+        <TextView
+                style="@style/Text.Emphasize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/concept_filter_title" />
+
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/concept_filter_person" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/concept_filter_gender" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/concept_filter_background" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/concept_filter_props" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_props"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/concept_filter_cloth" />
+
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_cloth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn"
+                style="@style/Text.Emphasize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_bottom_button"
+                android:text="@string/all_select"
+                android:textColor="@color/white" />
+    </LinearLayout>
+</FrameLayout>
