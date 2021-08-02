@@ -20,7 +20,7 @@ interface ConceptRetrofit {
         @Query("dress") dress: Array<String>?,
     ): ApiLiveData<ConceptList>
 
-    @PUT("/shops/{id}/like")
+    @PUT("/concepts/studios/{id}/like")
     fun setLike(
         @Path("id") id:Int,
         @Body body: LikeRequest

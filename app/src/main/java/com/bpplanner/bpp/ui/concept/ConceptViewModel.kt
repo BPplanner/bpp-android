@@ -51,6 +51,7 @@ class ConceptViewModel() : ViewModel(), IPageLoaderViewModel {
 
     fun setConceptFilter(filter: ConceptFilter){
         _conceptFilter.value = filter
+        reset()
     }
 
     private fun reset() {

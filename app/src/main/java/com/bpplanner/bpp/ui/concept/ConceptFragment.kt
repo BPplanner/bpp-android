@@ -47,10 +47,10 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
 
         binding?.let { b ->
 
-            b.recyclerView.layoutManager = GridLayoutManager(context, 2).apply {
+            b.recyclerView.layoutManager = GridLayoutManager(context, 3).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return if (position == adapter.itemCount && !viewModel.isFinishList()) 2
+                        return if (position == adapter.itemCount && !viewModel.isFinishList()) 3
                         else 1
                     }
                 }
@@ -74,7 +74,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
 
             adapter.setOnItemClick(object : ConceptListAdapter.OnItemClick {
                 override fun onItemClick(position: Int, item: ConceptData) {
-
+                    ConceptImageDialog.create(item).show(childFragmentManager, null)
                 }
 
                 override fun onLikeClick(position: Int, item: ConceptData) {
