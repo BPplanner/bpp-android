@@ -10,6 +10,7 @@ import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.DialogConceptBinding
 import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.ui.common.base.BaseDialogFragment
+import com.bpplanner.bpp.ui.shopdetail.ShopDetailActivity
 import com.bumptech.glide.Glide
 
 class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
@@ -34,7 +35,8 @@ class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
             b.btnLike.isChecked = data.like
             b.name.text = data.shop.name
             b.layoutName.setOnClickListener {
-                
+                val intent = ShopDetailActivity.getStartIntent(requireContext(), data.shop.id)
+                startActivity(intent)
             }
         }
     }

@@ -15,4 +15,9 @@
     <string name="all_studio">스튜디오</string>
     <string name="all_makeup">헤어메이크업</string>
     <string name="all_select">선택 완료</string>
+    <string name="all_portfolio">포트폴리오</string>
+    <string name="all_detail_info">상세 정보</string>
+    <string name="all_price">가격</string>
+    <string name="all_location">위치</string>
+    <string name="all_partnership">제휴업체</string>
 </resources>

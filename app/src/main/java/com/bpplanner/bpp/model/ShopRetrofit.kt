@@ -1,8 +1,12 @@
 package com.bpplanner.bpp.model
 
+import com.bpplanner.bpp.dto.ConceptData
+import com.bpplanner.bpp.dto.ConceptList
+import com.bpplanner.bpp.dto.ShopDetailData
 import com.bpplanner.bpp.dto.ShopList
 import com.bpplanner.bpp.model.base.ApiLiveData
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ShopRetrofit {
@@ -20,6 +24,17 @@ interface ShopRetrofit {
         @Query("like") like: Boolean,
         @Query("address") address: List<String>?
     ): ApiLiveData<ShopList>
+
+    @GET("/shops/{id}")
+    fun getShopDetail(
+        @Path("id") id: Int
+    ): ApiLiveData<ShopDetailData>
+
+    @GET("/shops/{id}/concepts")
+    fun getConceptList(
+        @Path("id") id: Int,
+        @Query("page") page: Int
+    ): ApiLiveData<ConceptList>
 
 }
 

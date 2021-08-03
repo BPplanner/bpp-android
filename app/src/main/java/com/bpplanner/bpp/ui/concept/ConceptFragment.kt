@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -58,7 +57,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
 
             b.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
-                    resources.getDimension(R.dimen.item_space).toInt()
+                    resources.getDimension(R.dimen.item_concept_space).toInt()
                 )
             )
             b.recyclerView.adapter = loadingAdapter

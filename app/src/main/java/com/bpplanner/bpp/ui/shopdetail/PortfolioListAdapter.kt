@@ -1,4 +1,4 @@
-package com.bpplanner.bpp.ui.concept
+package com.bpplanner.bpp.ui.shopdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,7 @@ import com.bpplanner.bpp.databinding.ItemConceptBinding
 import com.bpplanner.bpp.dto.ConceptData
 import com.bumptech.glide.Glide
 
-class ConceptListAdapter(private var isVisibleLikeBtn: Boolean = false) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PortfolioListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list: List<ConceptData>? = null
 
     private var onItemClick: OnItemClick? = null
@@ -57,6 +56,7 @@ class ConceptListAdapter(private var isVisibleLikeBtn: Boolean = false) :
     inner class ConceptViewHolder(val binding: ItemConceptBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
+            binding.like.isVisible = false
             binding.like.setOnClickListener {
                 val position = adapterPosition
                 onItemClick?.onLikeClick(position, getItem(position))
@@ -73,8 +73,6 @@ class ConceptListAdapter(private var isVisibleLikeBtn: Boolean = false) :
                 .into(binding.img)
 
             binding.like.isChecked = data.like
-            binding.like.isVisible = isVisibleLikeBtn
-
         }
     }
 

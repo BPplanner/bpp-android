@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.RecyclerviewBinding
+import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
+import com.bpplanner.bpp.ui.shopdetail.ShopDetailActivity
 
 class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
     private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
@@ -45,7 +47,7 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
         super.onViewCreated(view, savedInstanceState)
 
         binding?.let {
-            it.recyclerview.layoutManager = GridLayoutManager(context, 2).apply {
+            it.recyclerView.layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return when (position) {
@@ -59,15 +61,15 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
                     }
                 }
             }
-            it.recyclerview.addItemDecoration(
+            it.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
-                    resources.getDimension(R.dimen.item_space).toInt()
+                    resources.getDimension(R.dimen.item_concept_space).toInt()
                 )
             )
-            it.recyclerview.adapter = loadingAdapter
+            it.recyclerView.adapter = loadingAdapter
         }
 
-        adapter.setOnHeaderItemClick(object : HomeListAdapter.OnHeaderItemClick {
+        adapter.setOnItemClick(object : HomeListAdapter.OnItemClick {
             override fun onLikeClick(value: Boolean) {
                 viewModel.setLikeFilter(value)
             }
@@ -77,8 +79,12 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
                     bottomSheetFilter.show(childFragmentManager, null)
             }
 
-        })
+            override fun onItemClickListener(position: Int, data: ShopData) {
+                val intent = ShopDetailActivity.getStartIntent(requireContext(), data.id)
+                startActivity(intent)
+            }
 
+        })
 
         viewModel.listLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
