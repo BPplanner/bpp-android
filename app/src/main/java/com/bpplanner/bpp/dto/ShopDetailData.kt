@@ -10,7 +10,7 @@ data class ShopDetailData(
     @SerializedName("kakaourl") val kakaoUrl: String,
     @SerializedName("address_detail")val address:String,
     @SerializedName("minprice") val minPrice:Int,
-    @SerializedName("profile") val profileImg: String,
+    @SerializedName("profiles") val profileImgList: List<String>,
     @SerializedName("map") val mapImg: String,
     @SerializedName("affiliates") val partnershipList: List<PartnershipData>?,
 )

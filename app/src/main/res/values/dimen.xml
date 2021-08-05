@@ -4,4 +4,9 @@
     <dimen name="item_detail_concept_space">1dp</dimen>
 <!--    <dimen name="item_detail_concept_space">2.5dp</dimen>-->
     <dimen name="img_dialog_height">300dp</dimen>
+    <dimen name="detail_banner_min_height">300dp</dimen>
+
+    <dimen name="indicator_size">8dp</dimen>
+    <dimen name="indicator_padding">16dp</dimen>
+
 </resources>

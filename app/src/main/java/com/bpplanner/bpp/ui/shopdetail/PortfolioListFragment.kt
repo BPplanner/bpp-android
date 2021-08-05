@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.FragmentShopDetailConceptBinding
 import com.bpplanner.bpp.databinding.RecyclerviewBinding
+import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
@@ -55,6 +56,17 @@ class PortfolioListFragment : BaseFragment<FragmentShopDetailConceptBinding>() {
                 )
             )
             b.recyclerView.adapter = loadingAdapter
+
+            adapter.setOnItemClick(object: ConceptListAdapter.OnItemClick{
+                override fun onItemClick(position: Int, item: ConceptData) {
+                    val intent = ImgListActivity.getStartIntent(requireContext(), item.img)
+                    startActivity(intent)
+                }
+
+                override fun onLikeClick(position: Int, item: ConceptData) {
+
+                }
+            })
         }
 
 

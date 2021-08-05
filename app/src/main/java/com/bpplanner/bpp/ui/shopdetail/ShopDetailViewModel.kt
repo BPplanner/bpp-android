@@ -9,6 +9,7 @@ import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.dto.ConceptList
 import com.bpplanner.bpp.dto.ShopDetailData
 import com.bpplanner.bpp.model.base.ApiLiveData
+import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.model.base.MediatorApiLiveData
 import com.bpplanner.bpp.utils.pagination.IPageLoaderViewModel
 import com.bpplanner.bpp.utils.pagination.PageLoader
@@ -40,6 +41,15 @@ class ShopDetailViewModel(val id: Int) : ViewModel(), IPageLoaderViewModel {
     }
 
 
+    fun getBannerList() : Array<String> {
+        val data = dataLiveData.value
+
+        if (data is ApiStatus.Success){
+            return data.data.profileImgList.toTypedArray()
+        }
+
+        return arrayOf()
+    }
 
 
     class Factory(private val id: Int) : ViewModelProvider.Factory {

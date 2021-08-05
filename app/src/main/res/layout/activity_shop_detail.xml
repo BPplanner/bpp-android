@@ -2,11 +2,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -16,21 +16,38 @@
                 android:layout_height="wrap_content"
                 android:background="@color/black"
                 android:minHeight="?android:attr/actionBarSize"
-                app:layout_scrollFlags="scroll">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_detail_pin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <ImageView
+                <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="253dp"
+                        android:layout_height="@dimen/detail_banner_min_height"
+                        android:layout_gravity="fill_vertical"
                         android:background="@color/white"
+
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/banner_indicator"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:scrollIndicators="none"
+                        app:layout_constraintBottom_toBottomOf="@id/banner"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:tabGravity="center"
+                        android:background="@android:color/transparent"
+                        app:tabBackground="@drawable/indicator_black"
+                        app:tabIndicator="@null"
+                        app:tabPaddingEnd="@dimen/indicator_padding"
+                        app:tabPaddingStart="@dimen/indicator_padding" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layout_rating"

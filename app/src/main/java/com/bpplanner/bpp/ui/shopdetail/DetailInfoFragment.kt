@@ -53,7 +53,8 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
         val b = binding ?: return
 
         Glide.with(b.ivPrice)
-            .load(data.profileImg)
+            // TODO: 이미지 URL 변경
+            .load(data.logo)
             .into(b.ivPrice)
 
         Glide.with(b.ivLocation)
@@ -62,6 +63,17 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
         b.tvLocation.text = data.address
 
         adapter.setList(data.partnershipList)
+
+        b.ivLocation.setOnClickListener {
+            val intent = ImgListActivity.getStartIntent(requireContext(), data.mapImg)
+            startActivity(intent)
+        }
+
+        b.ivPrice.setOnClickListener {
+            // TODO: 이미지 URL 변경
+            val intent = ImgListActivity.getStartIntent(requireContext(), data.logo)
+            startActivity(intent)
+        }
 
     }
 
