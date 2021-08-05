@@ -24,4 +24,6 @@
     <string name="all_inquiring">문의 중</string>
     <string name="all_reservation_confirm">예약 확정</string>
     <string name="all_setting">설정</string>
+    <string name="withdraw_waring_1">회원탈퇴 진행 시 기존에 사용하셨던 아이디를 다시 사용하실 수 없습니다.</string>
+    <string name="withdraw_waring_2">회원정보 및 개인형 서비스의 데이터는 지체없이 파기 절차가 진행되어 복구할 수 없습니다.</string>
 </resources>

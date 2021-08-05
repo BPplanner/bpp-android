@@ -1,61 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize">
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
-                style="@style/Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/all_setting" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <LinearLayout
+                style="@style/Text.Basic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="24dp">
+                android:layout_marginTop="16dp"
+                android:text="회원탈퇴" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="16dp"
+                android:background="#bfbfbf" />
+
+        <TextView
+                style="@style/Text.Basic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:text="바프플래너를 탈퇴하면," />
+
+
+        <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
 
             <TextView
-                    style="@style/Text.Basic"
-                    android:layout_width="match_parent"
+                    style="@style/Text.Date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="12dp"
-                    android:text="라이센스" />
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#bfbfbf" />
+                    android:text="-"
+                    android:textColor="@color/gray" />
 
             <TextView
-                    style="@style/Text.Basic"
-                    android:layout_width="match_parent"
+                    style="@style/Text.Date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="12dp"
-                    android:text="로그아웃" />
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#bfbfbf" />
+                    android:text="@string/withdraw_waring_1"
+                    android:textColor="@color/gray" />
 
             <TextView
-                    style="@style/Text.Basic"
-                    android:layout_width="match_parent"
+                    style="@style/Text.Date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="12dp"
-                    android:text="회원 탈퇴" />
+                    android:text="-"
+                    android:textColor="@color/gray" />
 
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+            <TextView
+                    style="@style/Text.Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/withdraw_waring_2"
+                    android:textColor="@color/gray" />
+        </GridLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_confirm"
+            app:layout_constraintStart_toStartOf="@id/btn_confirm">
+
+        <com.bpplanner.bpp.view.ToggleImageButton
+                android:id="@+id/check"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="7dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="@id/title"
+                app:layout_constraintEnd_toStartOf="@id/btn_filter" />
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="안내사항을 확인하였으며, 동의합니다." />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_confirm"
+            style="@style/Text.Tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/bg_bottom_button_balck"
+            android:text="탈퇴하기"
+            android:textColor="@color/black_button_text"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

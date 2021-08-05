@@ -27,7 +27,7 @@ class SettingActivity: BaseActivity() {
             startActivity(Intent(this@SettingActivity, LicenceActivity::class.java))
         }
         binding.withdraw.setOnClickListener {
-
+            startActivity(Intent(this@SettingActivity, WithdrawActivity::class.java))
         }
         binding.logout.setOnClickListener {
             MyApp.getPrefs().clear()
