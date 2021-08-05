@@ -29,6 +29,10 @@ class ShopDetailViewModel(val id: Int) : ViewModel(), IPageLoaderViewModel {
         return dataLiveData
     }
 
+    fun setLike(value: Boolean){
+        repository.setLike(id, value)
+    }
+
     override fun loadList() {
         if (!pageLoader.canLoadList()) return
 

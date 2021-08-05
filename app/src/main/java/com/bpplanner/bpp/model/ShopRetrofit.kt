@@ -1,13 +1,8 @@
 package com.bpplanner.bpp.model
 
-import com.bpplanner.bpp.dto.ConceptData
-import com.bpplanner.bpp.dto.ConceptList
-import com.bpplanner.bpp.dto.ShopDetailData
-import com.bpplanner.bpp.dto.ShopList
+import com.bpplanner.bpp.dto.*
 import com.bpplanner.bpp.model.base.ApiLiveData
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ShopRetrofit {
 
@@ -34,6 +29,12 @@ interface ShopRetrofit {
     fun getConceptList(
         @Path("id") id: Int,
         @Query("page") page: Int
+    ): ApiLiveData<ConceptList>
+
+    @PUT("/shops/{id}/like")
+    fun setLike(
+        @Path("id") id: Int,
+        @Body like: LikeRequest
     ): ApiLiveData<ConceptList>
 
 }

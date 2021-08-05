@@ -38,13 +38,13 @@
                         android:id="@+id/banner_indicator"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
                         android:scrollIndicators="none"
                         app:layout_constraintBottom_toBottomOf="@id/banner"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:tabGravity="center"
-                        android:background="@android:color/transparent"
                         app:tabBackground="@drawable/indicator_black"
+                        app:tabGravity="center"
                         app:tabIndicator="@null"
                         app:tabPaddingEnd="@dimen/indicator_padding"
                         app:tabPaddingStart="@dimen/indicator_padding" />
@@ -126,13 +126,58 @@
                     app:tabTextColor="@color/tab_text" />
         </FrameLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
 
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:translationZ="1dp"
+            app:layout_behavior=".view.BottomNavigationBehavior"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+        <com.bpplanner.bpp.view.ToggleImageButton
+                android:id="@+id/btn_like"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_gray_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_like"
+                app:layout_constraintBottom_toBottomOf="@id/btn_call"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toStartOf="@id/btn_call"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btn_call" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_call"
+                style="@style/Text.Tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_bottom_button"
+                android:text="예약 및 문의하기"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/btn_like"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

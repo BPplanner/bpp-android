@@ -6,7 +6,7 @@ import com.bpplanner.bpp.model.AuthRetrofit
 import com.bpplanner.bpp.model.base.*
 
 class ShopDetailRepository {
-    val retrofit = RestClient.getShopService()
+    private val retrofit = RestClient.getShopService()
 
     fun getDetailData(id: Int): ApiLiveData<ShopDetailData> {
         return retrofit.getShopDetail(id)
@@ -14,6 +14,10 @@ class ShopDetailRepository {
 
     fun getConceptList(id: Int, page: Int): ApiLiveData<ConceptList> {
         return retrofit.getConceptList(id, page)
+    }
+
+    fun setLike(id: Int, value: Boolean){
+        retrofit.setLike(id, LikeRequest(value))
     }
 
 }

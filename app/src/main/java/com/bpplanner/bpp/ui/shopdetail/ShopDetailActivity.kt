@@ -1,8 +1,8 @@
 package com.bpplanner.bpp.ui.shopdetail
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,9 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivityShopDetailBinding
 import com.bpplanner.bpp.databinding.FragmentImgBinding
-import com.bpplanner.bpp.databinding.ItemLoadingBinding
 import com.bpplanner.bpp.model.base.ApiStatus
-import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
@@ -33,7 +31,6 @@ class ShopDetailActivity : BaseActivity() {
     private val bannerAdapter by lazy { BannerAdapter() }
 
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
@@ -46,6 +43,11 @@ class ShopDetailActivity : BaseActivity() {
 
         binding.banner.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.banner.adapter = bannerAdapter
+
+
+        binding.btnLike.setOnCheckedChangeListener { view, b ->
+            viewModel.setLike(b)
+        }
 
         TabLayoutMediator(
             binding.bannerIndicator,
@@ -71,6 +73,14 @@ class ShopDetailActivity : BaseActivity() {
 
                     binding.tvName.text = data.name
                     binding.tvPrice.text = "${data.minPrice} ~"
+
+                    binding.btnLike.isChecked = data.like
+
+                    binding.btnCall.setOnClickListener {
+                        val uri: Uri = Uri.parse(data.kakaoUrl)
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        startActivity(intent)
+                    }
 
                     bannerAdapter.notifyDataSetChanged()
                 }
@@ -107,7 +117,11 @@ class ShopDetailActivity : BaseActivity() {
 
             init {
                 binding.root.setOnClickListener {
-                    val intent = ImgListActivity.getStartIntent(this@ShopDetailActivity, viewModel.getBannerList(), adapterPosition)
+                    val intent = ImgListActivity.getStartIntent(
+                        this@ShopDetailActivity,
+                        viewModel.getBannerList(),
+                        adapterPosition
+                    )
                     startActivity(intent)
                 }
             }
