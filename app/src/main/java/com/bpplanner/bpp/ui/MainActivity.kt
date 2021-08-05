@@ -7,13 +7,14 @@ import com.bpplanner.bpp.databinding.ActivityMainBinding
 import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bpplanner.bpp.ui.concept.ConceptFragment
 import com.bpplanner.bpp.ui.home.HomeFragment
+import com.bpplanner.bpp.ui.mypage.MyPageFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private val homeFragment by lazy { HomeFragment() }
     private val conceptFragment by lazy { ConceptFragment() }
-    private val myPageFragment by lazy { HomeFragment() }
+    private val myPageFragment by lazy { MyPageFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

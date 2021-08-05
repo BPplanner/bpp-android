@@ -3,6 +3,7 @@
 
     <string name="auth_title"><b>바프플래너</b>에서\n바디프로필을 한눈에</string>
     <string name="concept_title">원하는 컨셉의\n스튜디오를 찾아보세요</string>
+    <string name="my_page_title">%s님\n환영합니다!</string>
 
     <string name="studio_filter_title">스튜디오 지역 선택</string>
     <string name="concept_filter_title">컨셉 필터</string>
@@ -20,4 +21,7 @@
     <string name="all_price">가격</string>
     <string name="all_location">위치</string>
     <string name="all_partnership">제휴업체</string>
+    <string name="all_inquiring">문의 중</string>
+    <string name="all_reservation_confirm">예약 확정</string>
+    <string name="all_setting">설정</string>
 </resources>

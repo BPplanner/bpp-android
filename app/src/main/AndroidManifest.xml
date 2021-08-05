@@ -24,6 +24,9 @@
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.shopdetail.ShopDetailActivity" />
         <activity android:name=".ui.shopdetail.ImgListActivity" />
+        <activity android:name=".ui.setting.SettingActivity" />
+        <activity android:name=".ui.setting.LicenceActivity" />
+        <activity android:name=".ui.setting.WithdrawActivity" />
 
 
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
