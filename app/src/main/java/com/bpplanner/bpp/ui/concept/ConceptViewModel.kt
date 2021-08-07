@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.bpplanner.bpp.MyApp
 import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.dto.ConceptFilter
-import com.bpplanner.bpp.dto.IdValuePair
 import com.bpplanner.bpp.model.base.ApiLiveData
 import com.bpplanner.bpp.utils.pagination.IPageLoaderViewModel
 import com.bpplanner.bpp.utils.pagination.PageLoader
@@ -29,7 +28,8 @@ class ConceptViewModel() : ViewModel(), IPageLoaderViewModel {
     override fun loadList() {
         if (!pageLoader.canLoadList()) return
 
-        val liveData = repository.getConceptList(pageLoader.page++, likeFilter, conceptFilter.value!!)
+        val liveData =
+            repository.getConceptList(pageLoader.page++, likeFilter, conceptFilter.value!!)
         pageLoader.addObserve(liveData)
     }
 
@@ -38,7 +38,7 @@ class ConceptViewModel() : ViewModel(), IPageLoaderViewModel {
     }
 
 
-    fun setLikeFilter(value: Boolean){
+    fun setLikeFilter(value: Boolean) {
         likeFilter = value
         reset()
         loadList()
@@ -49,9 +49,13 @@ class ConceptViewModel() : ViewModel(), IPageLoaderViewModel {
         return repository.setLikeConcept(item.id, item.like)
     }
 
-    fun setConceptFilter(filter: ConceptFilter){
+    fun setConceptFilter(filter: ConceptFilter) {
         _conceptFilter.value = filter
         reset()
+    }
+
+    fun getData(index: Int): ConceptData {
+        return pageLoader.getList()[index]
     }
 
     private fun reset() {

@@ -52,6 +52,7 @@ class ShopDetailActivity : BaseActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.ic_back)
             it.setDisplayShowTitleEnabled(false)
+            it.elevation = 0f
         }
 
         binding.appbar.setExpanded(true, true)

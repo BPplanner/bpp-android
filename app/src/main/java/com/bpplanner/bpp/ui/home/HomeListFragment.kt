@@ -88,6 +88,10 @@ class HomeListFragment private constructor() : BaseFragment<FragmentHomeListBind
                 startActivity(intent)
             }
 
+            override fun onLikeClickListener(position: Int, data: ShopData, value: Boolean) {
+                viewModel.setLike(data, value)
+            }
+
         })
 
         viewModel.listLiveData.observe(viewLifecycleOwner, Observer {

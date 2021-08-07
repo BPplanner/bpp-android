@@ -22,6 +22,7 @@ class SettingActivity : BaseActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
             it.setHomeAsUpIndicator(R.drawable.ic_back)
+            it.elevation = 0f
         }
 
         binding.licence.setOnClickListener {

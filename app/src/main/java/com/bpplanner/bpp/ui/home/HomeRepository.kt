@@ -1,5 +1,6 @@
 package com.bpplanner.bpp.ui.home
 
+import com.bpplanner.bpp.dto.LikeRequest
 import com.bpplanner.bpp.dto.ShopList
 import com.bpplanner.bpp.model.base.ApiLiveData
 import com.bpplanner.bpp.model.base.RestClient
@@ -14,5 +15,9 @@ class HomeRepository {
 
     fun getBeautyList(page: Int, like: Boolean, address: List<String>?): ApiLiveData<ShopList> {
         return service.getBeautyList(page, like, address)
+    }
+
+    fun setLike(id: Int, value: Boolean){
+        service.setLike(id, LikeRequest(value))
     }
 }

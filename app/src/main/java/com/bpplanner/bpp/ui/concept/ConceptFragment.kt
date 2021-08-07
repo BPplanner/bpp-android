@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
-import com.bpplanner.bpp.databinding.ChipFilterBinding
+import com.bpplanner.bpp.databinding.ChipFilterBlueBinding
 import com.bpplanner.bpp.databinding.FragmentConceptBinding
 import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.model.base.ApiStatus
@@ -16,6 +16,7 @@ import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
 import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 import com.google.android.material.chip.Chip
+
 
 class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
     private val viewModel by lazy {
@@ -73,7 +74,11 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
 
             adapter.setOnItemClick(object : ConceptListAdapter.OnItemClick {
                 override fun onItemClick(position: Int, item: ConceptData) {
-                    ConceptImageDialog.create(item).show(childFragmentManager, null)
+                    ConceptImageDialog.create(position).apply {
+                        setOnDismissListener {
+                            loadingAdapter.notifyItemChanged(position)
+                        }
+                    }.show(childFragmentManager, null)
                 }
 
                 override fun onLikeClick(position: Int, item: ConceptData) {
@@ -129,7 +134,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
     }
 
     private fun createChip(parent: ViewGroup, text: String): Chip {
-        val chip = ChipFilterBinding.inflate(layoutInflater).root
+        val chip = ChipFilterBlueBinding.inflate(layoutInflater).root
         chip.text = text
         parent.addView(chip)
         chip.isCheckable = false

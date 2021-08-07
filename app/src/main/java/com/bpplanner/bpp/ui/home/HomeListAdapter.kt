@@ -47,6 +47,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClick{
         fun onItemClickListener(position: Int, data: ShopData)
+        fun onLikeClickListener(position: Int, data: ShopData, value: Boolean)
     }
 
     inner class ShopViewHolder(val binding: ItemHomeShopBinding) :
@@ -54,6 +55,9 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         init {
             binding.root.setOnClickListener {
                 onItemClick?.onItemClickListener(adapterPosition, getItem(adapterPosition))
+            }
+            binding.like.setOnClickListener {
+                onItemClick?.onLikeClickListener(adapterPosition, getItem(adapterPosition), binding.like.isChecked)
             }
         }
 
@@ -65,6 +69,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.name.text = data.name
             binding.address.text = data.address
             binding.price.text = "${data.minPrice} ~"
+            binding.like.isChecked = data.like
         }
     }
 

@@ -54,10 +54,15 @@ class HomeViewModel(private val index: Int) : ViewModel(), IPageLoaderViewModel 
         }
     }
 
-    fun setLikeFilter(value: Boolean){
+    fun setLikeFilter(value: Boolean) {
         likeFilter = value
         reset()
         loadList()
+    }
+
+    fun setLike(data: ShopData, value: Boolean) {
+        data.like = value
+        repository.setLike(data.id, value)
     }
 
     fun reset() {

@@ -1,23 +1,28 @@
 package com.bpplanner.bpp.ui.concept
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.DialogConceptBinding
-import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.ui.common.base.BaseDialogFragment
 import com.bpplanner.bpp.ui.shopdetail.ShopDetailActivity
 import com.bumptech.glide.Glide
 
+
 class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
-    private val data by lazy { requireArguments().getParcelable<ConceptData>(ARGUMENT_DATA)!! }
+    private val index by lazy { requireArguments().getInt(ARGUMENT_INDEX) }
+    private val data by lazy { viewModel.getData(index) }
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(ConceptViewModel::class.java)
+        ViewModelProvider(requireParentFragment()).get(ConceptViewModel::class.java)
     }
+    private var onDismissListener: ((Int) -> Unit)? = null
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -50,18 +55,35 @@ class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
     override fun onResume() {
         super.onResume()
         dialog!!.window!!.setLayout(
+            FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT,
-            resources.getDimensionPixelSize(R.dimen.img_dialog_height)
+        )
+
+        dialog!!.window!!.setBackgroundDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.bg_concept_dialog,
+                null
+            )
         )
     }
 
-    companion object {
-        private const val ARGUMENT_DATA = "ARGUMENT_DATA"
+    fun setOnDismissListener(listener: ((Int) -> Unit)?) {
+        onDismissListener = listener
+    }
 
-        fun create(data: ConceptData): ConceptImageDialog {
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissListener?.invoke(index)
+    }
+
+    companion object {
+        private const val ARGUMENT_INDEX = "ARGUMENT_INDEX"
+
+        fun create(index: Int): ConceptImageDialog {
             val dialog = ConceptImageDialog()
             dialog.arguments = Bundle().apply {
-                putParcelable(ARGUMENT_DATA, data)
+                putInt(ARGUMENT_INDEX, index)
             }
 
             return dialog

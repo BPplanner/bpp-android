@@ -1,17 +1,20 @@
 package com.bpplanner.bpp.ui.launch
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivityAuthBinding
-import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.MainActivity
-import com.bpplanner.bpp.ui.home.HomeFragment
+import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.kakao.sdk.user.UserApiClient
 
 class AuthActivity : BaseActivity() {
@@ -25,7 +28,9 @@ class AuthActivity : BaseActivity() {
         setContentView(binding.root)
 
 
-
+//        val titleStr = SpannableString(getText(R.string.auth_title))
+//        titleStr.setSpan(StyleSpan(Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        binding.title.text = titleStr
         binding.title.text = getText(R.string.auth_title)
 
         binding.videoView.setVideoURI(Uri.parse("android.resource://${packageName}/${R.raw.login}"))
@@ -61,10 +66,10 @@ class AuthActivity : BaseActivity() {
         binding.videoView.start()
     }
 
-    private fun login(token : String) {
+    private fun login(token: String) {
         viewModel.loginKakao(token).observe(this, Observer {
             when (it) {
-                is ApiStatus.Success ->{
+                is ApiStatus.Success -> {
                     val intent = Intent(this@AuthActivity, MainActivity::class.java)
                     startActivity(intent)
                 }

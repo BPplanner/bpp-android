@@ -70,6 +70,7 @@ class ConceptListAdapter :
         fun bind(data: ConceptData) {
             Glide.with(binding.img)
                 .load(data.img)
+                .override(700, 700)
                 .into(binding.img)
 
             binding.like.isChecked = data.like
