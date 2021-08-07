@@ -56,6 +56,7 @@ class ShopDetailActivity : BaseActivity() {
         }
 
         binding.appbar.setExpanded(true, true)
+        binding.appbar.outlineProvider = null
 
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.viewPager.adapter = infoAdapter
