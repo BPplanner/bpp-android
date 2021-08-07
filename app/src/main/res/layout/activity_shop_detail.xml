@@ -12,16 +12,19 @@
             android:background="@color/white">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+                style="@style/Theme.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/black"
+                android:paddingBottom="15dp"
+                android:background="@color/white"
                 android:minHeight="?android:attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_detail_pin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
 
                 <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/banner"
@@ -37,7 +40,8 @@
                 <com.google.android.material.tabs.TabLayout
                         android:id="@+id/banner_indicator"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@android:color/transparent"
                         android:scrollIndicators="none"
                         app:layout_constraintBottom_toBottomOf="@id/banner"
@@ -63,6 +67,7 @@
                     <ImageView
                             android:id="@+id/logo"
                             android:layout_width="64dp"
+                            android:background="@drawable/bg_circle_logo"
                             android:layout_height="64dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -95,26 +100,36 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:layout_gravity="top"
+                    android:background="@color/white"
+                    android:theme="@style/Theme.AppCompat.NoActionBar"
+                    app:buttonGravity="center_vertical"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintTop_toTopOf="parent" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
 
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginHorizontal="16dp"
                     android:background="#E6E6E6" />
 
             <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
                     android:background="@android:color/transparent"
-                    android:paddingTop="15dp"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="@color/main"
                     app:tabIndicatorHeight="2.5dp"
@@ -156,8 +171,7 @@
                 android:background="@drawable/bg_gray_border"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_like_red"
                 app:layout_constraintBottom_toBottomOf="@id/btn_call"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toStartOf="@id/btn_call"

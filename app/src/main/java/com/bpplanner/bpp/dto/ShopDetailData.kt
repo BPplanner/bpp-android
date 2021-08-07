@@ -9,9 +9,10 @@ data class ShopDetailData(
     var like: Boolean,
     @SerializedName("kakaourl") val kakaoUrl: String,
     @SerializedName("address_detail")val address:String,
-    @SerializedName("minprice") val minPrice:Int,
     @SerializedName("profiles") val profileImgList: List<String>,
     @SerializedName("map") val mapImg: String,
+    @SerializedName("minprice") val minPrice:Int?,
+    @SerializedName("price_desc") val priceImg: String?,
     @SerializedName("affiliates") val partnershipList: List<PartnershipData>?,
 )
 

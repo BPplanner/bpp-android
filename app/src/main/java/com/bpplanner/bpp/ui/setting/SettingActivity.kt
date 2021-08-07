@@ -9,7 +9,7 @@ import com.bpplanner.bpp.databinding.ActivitySettingBinding
 import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bpplanner.bpp.ui.launch.AuthActivity
 
-class SettingActivity: BaseActivity() {
+class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +21,7 @@ class SettingActivity: BaseActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_back)
         }
 
         binding.licence.setOnClickListener {

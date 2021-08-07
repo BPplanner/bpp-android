@@ -17,33 +17,17 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        when (viewType) {
-            ITEM_TYPE_HEADER -> {
-                val binding = ItemHomeHeaderBinding.inflate(inflater, parent, false)
-                return HeaderViewHolder(binding)
-            }
-        }
-
         val binding = ItemHomeShopBinding.inflate(inflater, parent, false)
         return ShopViewHolder(binding)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (position == 0) return ITEM_TYPE_HEADER
-        return ITEM_TYPE_SHOP
-    }
 
     override fun getItemCount(): Int {
-        if (list == null) return 0
-        if (list!!.isEmpty()) return 1
-        return list!!.size + 1
+        return list?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> holder.binding.run {
-
-            }
             is ShopViewHolder -> holder.bind(getItem(position))
         }
     }
@@ -57,26 +41,12 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private fun getItem(position: Int): ShopData {
-        return list!![position - 1]
+        return list!![position]
     }
 
 
     interface OnItemClick{
-        fun onLikeClick(value: Boolean)
-        fun onFilterClick()
         fun onItemClickListener(position: Int, data: ShopData)
-    }
-
-    inner class HeaderViewHolder(val binding: ItemHomeHeaderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.like.setOnClickListener {
-                onItemClick?.onLikeClick(binding.like.isChecked)
-            }
-            binding.filter.setOnClickListener {
-                onItemClick?.onFilterClick()
-            }
-        }
     }
 
     inner class ShopViewHolder(val binding: ItemHomeShopBinding) :
@@ -100,6 +70,5 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val ITEM_TYPE_SHOP = 0
-        const val ITEM_TYPE_HEADER = 1
     }
 }

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.DialogConceptBinding
 import com.bpplanner.bpp.dto.ConceptData
@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide
 
 class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
     private val data by lazy { requireArguments().getParcelable<ConceptData>(ARGUMENT_DATA)!! }
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(ConceptViewModel::class.java)
+    }
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -38,12 +41,18 @@ class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
                 val intent = ShopDetailActivity.getStartIntent(requireContext(), data.shop.id)
                 startActivity(intent)
             }
+            b.btnLike.setOnCheckedChangeListener { view, b ->
+                viewModel.setLikeConcept(data)
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        dialog!!.window!!.setLayout(FrameLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.img_dialog_height))
+        dialog!!.window!!.setLayout(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            resources.getDimensionPixelSize(R.dimen.img_dialog_height)
+        )
     }
 
     companion object {

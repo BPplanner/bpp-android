@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
-import com.bpplanner.bpp.databinding.RecyclerviewBinding
+import com.bpplanner.bpp.databinding.FragmentHomeListBinding
 import com.bpplanner.bpp.dto.ShopData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
@@ -16,7 +16,7 @@ import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 import com.bpplanner.bpp.ui.shopdetail.ShopDetailActivity
 
-class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>() {
+class HomeListFragment private constructor() : BaseFragment<FragmentHomeListBinding>() {
     private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
     private val viewModel by lazy {
         ViewModelProvider(this, HomeViewModel.Factory(index))
@@ -38,21 +38,20 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
     override fun createViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): RecyclerviewBinding {
-        return RecyclerviewBinding.inflate(inflater, container, false)
+    ): FragmentHomeListBinding {
+        return FragmentHomeListBinding.inflate(inflater, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.let {
-            it.recyclerView.layoutManager = GridLayoutManager(context, 2).apply {
+        binding?.let { b ->
+            b.recyclerView.layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return when (position) {
-                            0 -> 2
-                            adapter.itemCount -> {
+                            loadingAdapter.itemCount - 1 -> {
                                 if (viewModel.isFinishList()) 1
                                 else 2
                             }
@@ -61,23 +60,28 @@ class HomeListFragment private constructor() : BaseFragment<RecyclerviewBinding>
                     }
                 }
             }
-            it.recyclerView.addItemDecoration(
+            b.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
-                    resources.getDimension(R.dimen.item_concept_space).toInt()
+                    resources.getDimension(R.dimen.item_concept_space_horizontal).toInt(),
+                    resources.getDimension(R.dimen.item_concept_space_vertical).toInt(),
+                    2
                 )
             )
-            it.recyclerView.adapter = loadingAdapter
+            b.recyclerView.adapter = loadingAdapter
+
+            b.btnLike.setOnCheckedChangeListener { _
+                                                   , isChecked ->
+                viewModel.setLikeFilter(isChecked)
+            }
+
+            b.btnFilter.setOnClickListener {
+                if (!bottomSheetFilter.isVisible)
+                    bottomSheetFilter.show(childFragmentManager, null)
+            }
+
         }
 
         adapter.setOnItemClick(object : HomeListAdapter.OnItemClick {
-            override fun onLikeClick(value: Boolean) {
-                viewModel.setLikeFilter(value)
-            }
-
-            override fun onFilterClick() {
-                if(!bottomSheetFilter.isVisible)
-                    bottomSheetFilter.show(childFragmentManager, null)
-            }
 
             override fun onItemClickListener(position: Int, data: ShopData) {
                 val intent = ShopDetailActivity.getStartIntent(requireContext(), data.id)

@@ -2,10 +2,18 @@ package com.bpplanner.bpp.ui.shopdetail
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +26,9 @@ import com.bpplanner.bpp.databinding.FragmentImgBinding
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.base.BaseActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -36,6 +47,13 @@ class ShopDetailActivity : BaseActivity() {
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeAsUpIndicator(R.drawable.ic_back)
+            it.setDisplayShowTitleEnabled(false)
+        }
+
         binding.appbar.setExpanded(true, true)
 
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -43,7 +61,6 @@ class ShopDetailActivity : BaseActivity() {
 
         binding.banner.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.banner.adapter = bannerAdapter
-
 
         binding.btnLike.setOnCheckedChangeListener { view, b ->
             viewModel.setLike(b)
@@ -63,16 +80,58 @@ class ShopDetailActivity : BaseActivity() {
             }
         }.attach()
 
+        (binding.tabLayout.getTabAt(0)?.view?.getChildAt(1) as? TextView)
+            ?.setTextAppearance(R.style.Text_Emphasize)
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val textView = tab.view.getChildAt(1) as? TextView
+                textView?.setTextAppearance(R.style.Text_Emphasize)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                val textView = tab.view.getChildAt(1) as? TextView
+                textView?.setTextAppearance(R.style.Text_Basic)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val value = -255 * verticalOffset / appBarLayout.totalScrollRange
+            binding.toolbar.background.alpha = value
+
+            val hex = "%02x".format(255 - value)
+
+            val reverseValue = 255 - value
+            val dynamicThumbColor = Color.argb(255, reverseValue, reverseValue, reverseValue)
+
+
+            val upArrow = ResourcesCompat.getDrawable(resources, R.drawable.ic_back, null)
+            upArrow!!.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                dynamicThumbColor,
+                BlendModeCompat.SRC_IN
+            )
+//            upArrow!!.setColorFilter(Color.parseColor("#$hex$hex$hex"), PorterDuff.Mode.ADD)
+            supportActionBar?.setHomeAsUpIndicator(upArrow)
+
+        })
+
         viewModel.getDetailData().observe(this, Observer {
             when (it) {
                 is ApiStatus.Success -> {
                     val data = it.data
                     Glide.with(binding.logo)
                         .load(data.logo)
+                        .apply(RequestOptions().circleCrop())
                         .into(binding.logo)
 
                     binding.tvName.text = data.name
-                    binding.tvPrice.text = "${data.minPrice} ~"
+                    if (data.minPrice == null) {
+                        binding.tvPrice.isVisible = false
+                    } else {
+                        binding.tvPrice.isVisible = true
+                        binding.tvPrice.text = "${data.minPrice} ~"
+                    }
 
                     binding.btnLike.isChecked = data.like
 
@@ -91,10 +150,17 @@ class ShopDetailActivity : BaseActivity() {
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
     inner class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
-
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = FragmentImgBinding.inflate(inflater, parent, false)
@@ -127,7 +193,6 @@ class ShopDetailActivity : BaseActivity() {
             }
         }
     }
-
 
     inner class DetailViewPagerAdapter : FragmentStateAdapter(this) {
         override fun getItemCount(): Int {

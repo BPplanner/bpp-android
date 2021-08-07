@@ -5,5 +5,5 @@
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:clipToPadding="false"
-        android:paddingHorizontal="14.5dp"
+        android:paddingHorizontal="13.5dp"
         android:paddingVertical="12dp" />

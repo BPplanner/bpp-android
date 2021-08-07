@@ -21,9 +21,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
     private val viewModel by lazy {
         ViewModelProvider(this).get(ConceptViewModel::class.java)
     }
-    private val adapter by lazy {
-        ConceptListAdapter()
-    }
+    private val adapter by lazy { ConceptListAdapter() }
     private val loadingAdapter by lazy {
         LoadingRecyclerViewAdapter(adapter).apply {
             setOnBindLoadingListener {
@@ -49,7 +47,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
             b.recyclerView.layoutManager = GridLayoutManager(context, 3).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return if (position == adapter.itemCount && !viewModel.isFinishList()) 3
+                        return if (position == loadingAdapter.itemCount - 1 && !viewModel.isFinishList()) 3
                         else 1
                     }
                 }
@@ -57,7 +55,9 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
 
             b.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
-                    resources.getDimension(R.dimen.item_concept_space).toInt()
+                    resources.getDimension(R.dimen.item_concept_space_horizontal).toInt(),
+                    resources.getDimension(R.dimen.item_concept_space_horizontal).toInt(),
+                    2
                 )
             )
             b.recyclerView.adapter = loadingAdapter

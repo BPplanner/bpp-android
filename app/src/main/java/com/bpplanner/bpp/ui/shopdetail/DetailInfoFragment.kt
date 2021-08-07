@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +35,6 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.let { b ->
-
             b.recyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             b.recyclerView.adapter = adapter
@@ -52,27 +52,38 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
     private fun bind(data: ShopDetailData) {
         val b = binding ?: return
 
-        Glide.with(b.ivPrice)
-            // TODO: 이미지 URL 변경
-            .load(data.logo)
-            .into(b.ivPrice)
-
         Glide.with(b.ivLocation)
             .load(data.mapImg)
             .into(b.ivLocation)
         b.tvLocation.text = data.address
-
-        adapter.setList(data.partnershipList)
 
         b.ivLocation.setOnClickListener {
             val intent = ImgListActivity.getStartIntent(requireContext(), data.mapImg)
             startActivity(intent)
         }
 
-        b.ivPrice.setOnClickListener {
-            // TODO: 이미지 URL 변경
-            val intent = ImgListActivity.getStartIntent(requireContext(), data.logo)
-            startActivity(intent)
+        if (data.priceImg == null) {
+            b.tvPriceLabel.isVisible = false
+            b.ivPrice.isVisible = false
+        } else {
+            b.tvPriceLabel.isVisible = true
+            b.ivPrice.isVisible = true
+            Glide.with(b.ivPrice)
+                .load(data.priceImg)
+                .into(b.ivPrice)
+            b.ivPrice.setOnClickListener {
+                val intent = ImgListActivity.getStartIntent(requireContext(), data.priceImg)
+                startActivity(intent)
+            }
+        }
+
+        if (data.partnershipList.isNullOrEmpty()){
+            b.tvPartnershipLabel.isVisible = false
+            b.recyclerView.isVisible = false
+        }else{
+            b.tvPartnershipLabel.isVisible = true
+            b.recyclerView.isVisible = true
+            adapter.setList(data.partnershipList)
         }
 
     }
@@ -80,7 +91,10 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
     private inner class PartnershipAdapter :
         RecyclerView.Adapter<PartnershipAdapter.PartnershipViewHolder>() {
         private var list: List<PartnershipData>? = null
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartnershipViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): PartnershipViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemPartnershipBinding.inflate(inflater, parent, false)
             return PartnershipViewHolder(binding)
@@ -105,13 +119,13 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
 
         private inner class PartnershipViewHolder(val binding: ItemPartnershipBinding) :
             RecyclerView.ViewHolder(binding.root) {
-                init {
-                    binding.root.setOnClickListener {
-                        val data = list!![adapterPosition]
-                        val intent = ShopDetailActivity.getStartIntent(requireContext(), data.id)
-                        startActivity(intent)
-                    }
+            init {
+                binding.root.setOnClickListener {
+                    val data = list!![adapterPosition]
+                    val intent = ShopDetailActivity.getStartIntent(requireContext(), data.id)
+                    startActivity(intent)
                 }
             }
+        }
     }
 }

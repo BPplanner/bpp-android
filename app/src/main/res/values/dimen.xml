@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_concept_space">4dp</dimen>
-    <dimen name="item_detail_concept_space">1dp</dimen>
+    <dimen name="item_concept_space_horizontal">4dp</dimen>
+    <dimen name="item_concept_space_vertical">8dp</dimen>
+    <dimen name="item_detail_concept_space">2.5dp</dimen>
 <!--    <dimen name="item_detail_concept_space">2.5dp</dimen>-->
     <dimen name="img_dialog_height">300dp</dimen>
     <dimen name="detail_banner_min_height">300dp</dimen>
 
-    <dimen name="indicator_size">8dp</dimen>
-    <dimen name="indicator_padding">16dp</dimen>
+    <dimen name="indicator_size">4dp</dimen>
+    <dimen name="indicator_padding">8dp</dimen>
+
+    <dimen name="sheet_max_padding">100dp</dimen>
 
 </resources>

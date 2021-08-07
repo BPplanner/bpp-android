@@ -3,7 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="ifContentScrolls">
+        android:overScrollMode="ifContentScrolls"
+        android:paddingBottom="40dp">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -14,45 +15,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingHorizontal="16dp">
 
             <TextView
+                    android:id="@+id/tv_price_label"
                     style="@style/Text.Basic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
                     android:text="@string/all_price" />
 
             <ImageView
                     android:id="@+id/iv_price"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:paddingTop="8dp" />
 
             <TextView
+
                     style="@style/Text.Basic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="17dp"
                     android:text="@string/all_location" />
 
             <ImageView
                     android:id="@+id/iv_location"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
 
             <TextView
                     android:id="@+id/tv_location"
                     style="@style/Text.Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="7dp"
                     tools:text="asdfasdfadfadsf" />
 
 
             <TextView
+                    android:id="@+id/tv_partnership_label"
                     style="@style/Text.Basic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="17dp"
                     android:text="@string/all_partnership" />
 
         </LinearLayout>
@@ -61,6 +70,8 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="7dp"
                 android:paddingHorizontal="8dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

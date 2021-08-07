@@ -2,6 +2,7 @@ package com.bpplanner.bpp.ui.setting
 
 import android.os.Bundle
 import android.view.MenuItem
+import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ActivitySettingBinding
 import com.bpplanner.bpp.databinding.ActivityWithdrawBinding
 import com.bpplanner.bpp.ui.common.base.BaseActivity
@@ -18,6 +19,7 @@ class WithdrawActivity : BaseActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_back)
         }
 
 

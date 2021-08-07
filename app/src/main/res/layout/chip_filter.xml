@@ -12,4 +12,5 @@
         app:chipBackgroundColor="@color/bg_chip"
         app:textEndPadding="12dp"
         app:textStartPadding="12dp"
+        app:chipMinTouchTargetSize="0dp"
         tools:text="000" />

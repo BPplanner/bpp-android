@@ -6,17 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 
-class SpacesItemDecoration(private val space: Int) : ItemDecoration() {
+class SpacesItemDecoration(private val horizon: Int, private val vertical: Int, private val gridCount: Int = 1) : ItemDecoration() {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.left = space
-        outRect.right = space
-        outRect.bottom = space
+        outRect.left = horizon
+        outRect.right = horizon
+        outRect.bottom = vertical
 
-        // Add top margin only for the first item to avoid double space between items
-        if (parent.getChildLayoutPosition(view) == 0) {
-            outRect.top = space
-        } else {
+        if (parent.getChildLayoutPosition(view) < gridCount) {
             outRect.top = 0
+        } else {
+            outRect.top = vertical
         }
     }
 }

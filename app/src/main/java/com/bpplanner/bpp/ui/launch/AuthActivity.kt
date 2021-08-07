@@ -34,11 +34,23 @@ class AuthActivity : BaseActivity() {
         }
 
         binding.btnKakao.setOnClickListener {
-            UserApiClient.instance.loginWithKakaoTalk(this@AuthActivity) { token, error ->
-                if (error != null) {
-                    Log.e("KakaoAuth", "로그인 실패", error)
-                } else if (token != null) {
-                    login(token.accessToken)
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                    if (token != null) {
+                        login(token.accessToken)
+                    } else if (error != null) {
+                        UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
+                            if (token != null) {
+                                login(token.accessToken)
+                            }
+                        }
+                    }
+                }
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
+                    if (token != null) {
+                        login(token.accessToken)
+                    }
                 }
             }
         }

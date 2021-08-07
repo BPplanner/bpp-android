@@ -2,6 +2,8 @@
     <string name="app_name">Bpp</string>
 
     <string name="auth_title"><b>바프플래너</b>에서\n바디프로필을 한눈에</string>
+    <string name="home_sub_title">스튜디오 찾으세요?</string>
+    <string name="home_title">한 눈에 확인하고\n비교해보세요!</string>
     <string name="concept_title">원하는 컨셉의\n스튜디오를 찾아보세요</string>
     <string name="my_page_title">%s님\n환영합니다!</string>
 

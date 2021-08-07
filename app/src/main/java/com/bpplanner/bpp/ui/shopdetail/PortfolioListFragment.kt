@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.FragmentShopDetailConceptBinding
-import com.bpplanner.bpp.databinding.RecyclerviewBinding
 import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.ui.common.LoadingRecyclerViewAdapter
@@ -21,7 +20,7 @@ class PortfolioListFragment : BaseFragment<FragmentShopDetailConceptBinding>() {
     private val viewModel by lazy {
         ViewModelProvider(requireActivity()).get(ShopDetailViewModel::class.java)
     }
-    private val adapter by lazy { ConceptListAdapter( false) }
+    private val adapter by lazy { PortfolioListAdapter() }
     private val loadingAdapter by lazy {
         LoadingRecyclerViewAdapter(adapter).apply {
             setOnBindLoadingListener {
@@ -52,19 +51,17 @@ class PortfolioListFragment : BaseFragment<FragmentShopDetailConceptBinding>() {
 
             b.recyclerView.addItemDecoration(
                 SpacesItemDecoration(
-                    resources.getDimension(R.dimen.item_detail_concept_space).toInt()
+                    resources.getDimension(R.dimen.item_detail_concept_space).toInt(),
+                    resources.getDimension(R.dimen.item_detail_concept_space).toInt(),
+                    3
                 )
             )
             b.recyclerView.adapter = loadingAdapter
 
-            adapter.setOnItemClick(object: ConceptListAdapter.OnItemClick{
+            adapter.setOnItemClick(object : PortfolioListAdapter.OnItemClick {
                 override fun onItemClick(position: Int, item: ConceptData) {
                     val intent = ImgListActivity.getStartIntent(requireContext(), item.img)
                     startActivity(intent)
-                }
-
-                override fun onLikeClick(position: Int, item: ConceptData) {
-
                 }
             })
         }

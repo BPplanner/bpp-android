@@ -10,7 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ChipFilterBinding
 import com.bpplanner.bpp.databinding.FragmentConceptFilterBinding
-import com.bpplanner.bpp.dto.ConceptFilter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
@@ -34,6 +35,14 @@ open class ConceptFilterSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        val offsetFromTop = resources.getDimension(R.dimen.sheet_max_padding).toInt()
+//        (dialog as? BottomSheetDialog)?.behavior?.apply {
+//            isFitToContents = false
+//            expandedOffset = offsetFromTop
+//            state = BottomSheetBehavior.STATE_EXPANDED
+//        }
+
         binding?.let { b ->
             val data = viewModel.conceptFilter.value!!.copy()
 

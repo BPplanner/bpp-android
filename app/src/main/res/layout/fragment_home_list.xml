@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+
+    <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/btn_like"
+                app:checkedIcon="@drawable/ic_like_small_on"
+                app:chipBackgroundColor="#f2f2f2"
+                app:chipIcon="@drawable/ic_like_small_off"
+                app:chipMinHeight="32dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:iconStartPadding="12dp"
+                app:textEndPadding="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="모아보기"
+                android:textColor="@color/gray" />
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/btn_filter"
+                app:chipBackgroundColor="#f2f2f2"
+                app:chipIcon="@drawable/ic_filter"
+                app:chipMinHeight="32dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:iconStartPadding="12dp"
+                app:textEndPadding="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:text="필터"
+                android:textColor="@color/gray" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingHorizontal="12dp" />
+</LinearLayout>
