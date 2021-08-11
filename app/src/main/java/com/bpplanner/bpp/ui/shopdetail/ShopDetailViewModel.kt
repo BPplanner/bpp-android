@@ -55,6 +55,10 @@ class ShopDetailViewModel(val id: Int) : ViewModel(), IPageLoaderViewModel {
         return arrayOf()
     }
 
+    fun inquireShop() : ApiLiveData<Void> {
+        return repository.inquireShop(id)
+    }
+
 
     class Factory(private val id: Int) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

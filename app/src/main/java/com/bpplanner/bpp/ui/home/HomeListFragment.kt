@@ -16,7 +16,7 @@ import com.bpplanner.bpp.ui.common.SpacesItemDecoration
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 import com.bpplanner.bpp.ui.shopdetail.ShopDetailActivity
 
-class HomeListFragment private constructor() : BaseFragment<FragmentHomeListBinding>() {
+class HomeListFragment  : BaseFragment<FragmentHomeListBinding>() {
     private val index by lazy { arguments?.getInt(ARGUMENT_INDEX) ?: 0 }
     private val viewModel by lazy {
         ViewModelProvider(this, HomeViewModel.Factory(index))

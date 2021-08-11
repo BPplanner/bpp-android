@@ -58,14 +58,6 @@ class ConceptImageDialog : BaseDialogFragment<DialogConceptBinding>() {
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT,
         )
-
-        dialog!!.window!!.setBackgroundDrawable(
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.bg_concept_dialog,
-                null
-            )
-        )
     }
 
     fun setOnDismissListener(listener: ((Int) -> Unit)?) {

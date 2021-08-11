@@ -8,7 +8,7 @@ import com.bpplanner.bpp.databinding.FragmentImgBinding
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 import com.bumptech.glide.Glide
 
-class ImgFragment private constructor() : BaseFragment<FragmentImgBinding>() {
+class ImgFragment  : BaseFragment<FragmentImgBinding>() {
     private val img: String by lazy { requireArguments().getString(ARGUMENT_IMG)!! }
 
 

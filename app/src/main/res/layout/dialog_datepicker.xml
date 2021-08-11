@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp">
+
+    <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp">
+
+        <TextView
+                style="@style/Text.Basic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예약 확정 날짜" />
+
+
+        <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="#bfbfbf" />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/btn_cancel"
+                    style="@style/Text.Emphasize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="취소"
+                    android:textColor="#bfbfbf" />
+
+            <TextView
+                    android:id="@+id/btn_confirm"
+                    style="@style/Text.Emphasize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    android:text="저장"
+                    android:textColor="@color/main" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

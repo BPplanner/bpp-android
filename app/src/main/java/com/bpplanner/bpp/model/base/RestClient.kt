@@ -5,6 +5,7 @@ import com.bpplanner.bpp.MyApp
 import com.bpplanner.bpp.dto.TokenRequest
 import com.bpplanner.bpp.model.AuthRetrofit
 import com.bpplanner.bpp.model.ConceptRetrofit
+import com.bpplanner.bpp.model.ReservationRetrofit
 import com.bpplanner.bpp.model.ShopRetrofit
 import com.bpplanner.bpp.utils.JWT
 import com.bpplanner.bpp.utils.LogUtil
@@ -18,6 +19,7 @@ object RestClient {
     fun getAuthService(): AuthRetrofit = retrofit.create(AuthRetrofit::class.java)
     fun getShopService(): ShopRetrofit = retrofit.create(ShopRetrofit::class.java)
     fun getConceptService(): ConceptRetrofit = retrofit.create(ConceptRetrofit::class.java)
+    fun getReservationService(): ReservationRetrofit = retrofit.create(ReservationRetrofit::class.java)
 
     private var token = MyApp.getPrefs().token
 

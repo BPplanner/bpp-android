@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -138,9 +137,13 @@ class ShopDetailActivity : BaseActivity() {
                     binding.btnLike.isChecked = data.like
 
                     binding.btnCall.setOnClickListener {
-                        val uri: Uri = Uri.parse(data.kakaoUrl)
-                        val intent = Intent(Intent.ACTION_VIEW, uri)
-                        startActivity(intent)
+                        viewModel.inquireShop().observe(this@ShopDetailActivity, Observer {
+                            if (it is ApiStatus.Success) {
+                                val uri: Uri = Uri.parse(data.kakaoUrl)
+                                val intent = Intent(Intent.ACTION_VIEW, uri)
+                                startActivity(intent)
+                            }
+                        })
                     }
 
                     bannerAdapter.notifyDataSetChanged()

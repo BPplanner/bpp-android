@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.FragmentMyPageBinding
 import com.bpplanner.bpp.ui.common.base.BaseFragment
-import com.bpplanner.bpp.ui.home.HomeListFragment
-import com.bpplanner.bpp.ui.setting.LicenceActivity
 import com.bpplanner.bpp.ui.setting.SettingActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -34,25 +32,23 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.let { b ->
+            b.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            b.viewPager.adapter = adapter
 
-            binding?.let { b ->
-                b.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                b.viewPager.adapter = adapter
-
-                TabLayoutMediator(b.tabLayout, b.viewPager) { tab, position ->
-                    tab.text = when (position) {
-                        1 -> getString(R.string.all_reservation_confirm)
-                        else -> getString(R.string.all_inquiring)
-                    }
-                }.attach()
-
-
-                b.btnSetting.setOnClickListener {
-                    startActivity(Intent(context, SettingActivity::class.java))
+            TabLayoutMediator(b.tabLayout, b.viewPager) { tab, position ->
+                tab.text = when (position) {
+                    1 -> getString(R.string.all_reservation_confirm)
+                    else -> getString(R.string.all_inquiring)
                 }
+            }.attach()
 
+
+            b.btnSetting.setOnClickListener {
+                startActivity(Intent(context, SettingActivity::class.java))
             }
+
         }
+
     }
 
 
@@ -62,7 +58,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return HomeListFragment.create(position)
+            return MypageListFragment()
         }
     }
 

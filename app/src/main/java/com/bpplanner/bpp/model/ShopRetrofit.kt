@@ -37,5 +37,11 @@ interface ShopRetrofit {
         @Body like: LikeRequest
     ): ApiLiveData<ConceptList>
 
+
+    @POST("/reservations/shops/{id}")
+    fun inquireShop(
+        @Path("id") id: Int,
+    ): ApiLiveData<Void>
+
 }
 

@@ -20,4 +20,8 @@ class ShopDetailRepository {
         retrofit.setLike(id, LikeRequest(value))
     }
 
+    fun inquireShop(id: Int): ApiLiveData<Void>{
+        return retrofit.inquireShop(id)
+    }
+
 }
