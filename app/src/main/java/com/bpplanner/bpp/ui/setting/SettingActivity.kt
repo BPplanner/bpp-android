@@ -33,8 +33,9 @@ class SettingActivity : BaseActivity() {
         }
         binding.logout.setOnClickListener {
             MyApp.getPrefs().clear()
-            startActivity(Intent(this@SettingActivity, AuthActivity::class.java))
-            finish()
+            val intent = Intent(this@SettingActivity, AuthActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
         }
     }
 

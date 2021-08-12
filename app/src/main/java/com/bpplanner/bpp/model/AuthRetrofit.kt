@@ -6,6 +6,7 @@ import com.bpplanner.bpp.dto.TokenRequest
 import com.bpplanner.bpp.model.base.ApiLiveData
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.POST
 
 interface AuthRetrofit {
@@ -16,5 +17,7 @@ interface AuthRetrofit {
     @POST("/login/token/refresh/")
     fun newToken(@Body token: TokenRequest): Call<TokenData>
 
+    @DELETE("login/withdrawal/")
+    fun withdraw(): ApiLiveData<Any>
 }
 
