@@ -13,9 +13,18 @@ class JWT {
 
             return json.userId
         }
+
+        fun getUserName(jwt: String): String {
+            val payload = jwt.split(".")[1]
+            val jsonString = String(Base64.decode(payload, 0))
+            val json = Gson().fromJson(jsonString, JWTData::class.java)
+
+            return json.name
+        }
     }
 
     data class JWTData(
-        @SerializedName("user_id") val userId: Int
+        @SerializedName("user_id") val userId: Int,
+        @SerializedName("username") val name: String
     )
 }

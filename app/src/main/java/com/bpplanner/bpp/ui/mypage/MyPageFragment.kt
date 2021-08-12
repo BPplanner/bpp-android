@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.bpplanner.bpp.MyApp
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.FragmentMyPageBinding
 import com.bpplanner.bpp.ui.common.base.BaseFragment
 import com.bpplanner.bpp.ui.setting.SettingActivity
+import com.bpplanner.bpp.utils.JWT
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
@@ -32,6 +34,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.let { b ->
+            val userName = JWT.getUserName(MyApp.getPrefs().token!!.access)
+            b.title.text = getString(R.string.my_page_title).format(userName)
+
             b.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             b.viewPager.adapter = adapter
 
