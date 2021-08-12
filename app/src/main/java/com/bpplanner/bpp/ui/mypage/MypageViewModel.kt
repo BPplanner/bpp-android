@@ -17,12 +17,12 @@ class MypageViewModel : ViewModel() {
         return repository.getReservationList()
     }
 
-    fun cancelInquiring(item: MypageData): ApiLiveData<Void> {
+    fun cancelInquiring(item: MypageData): ApiLiveData<Any> {
         return repository.cancelInquiring(item.id)
     }
 
 
-    fun confirmReservation(item: MypageData, date: String): ApiLiveData<Void> {
+    fun confirmReservation(item: MypageData, date: String): ApiLiveData<Any> {
         return repository.confirmReservation(item.id, date)
     }
 }

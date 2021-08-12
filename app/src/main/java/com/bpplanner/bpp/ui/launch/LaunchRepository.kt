@@ -14,7 +14,7 @@ class LaunchRepository {
         mediator.addSource(
             retrofit.login(LoginRequest(kakaoAccessToken)),
             object : MediatorApiSuccessCallback<TokenData> {
-                override fun onSuccess(code: Int, data: TokenData) {
+                override fun onSuccess(code: Int, data: TokenData?) {
                     MyApp.getPrefs().token = data
                     mediator.value = ApiStatus.Success(code, data)
                 }

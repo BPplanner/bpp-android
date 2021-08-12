@@ -90,7 +90,7 @@ class ConceptFragment : BaseFragment<FragmentConceptBinding>() {
             viewModel.listLiveData.observe(viewLifecycleOwner, Observer {
                 when (it) {
                     is ApiStatus.Success -> {
-                        adapter.setData(it.data)
+                        adapter.setData(it.data!!)
                         loadingAdapter.setVisibleLoading(!viewModel.isFinishList())
                         loadingAdapter.notifyDataSetChanged()
                     }

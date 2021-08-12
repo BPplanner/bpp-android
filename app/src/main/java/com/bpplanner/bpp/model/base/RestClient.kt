@@ -80,8 +80,8 @@ object RestClient {
             client(client)
 
             addConverterFactory(NullOnEmptyConverterFactory())
-            addCallAdapterFactory(LiveDataCallAdapter.Factory())
             addConverterFactory(GsonConverterFactory.create()) // GSON을 사요아기 위해 ConverterFactory에 GSON 지정
+            addCallAdapterFactory(LiveDataCallAdapter.Factory())
             build()
         }
 }

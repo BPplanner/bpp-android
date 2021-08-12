@@ -20,7 +20,7 @@ class MypageRepository {
         mediator.addSource(liveData, Observer {
             when (it) {
                 is ApiStatus.Success -> {
-                    val list = it.data.list
+                    val list = it.data!!.list
 
                     val studioList = mutableListOf<MypageData>()
                     val beautyList = mutableListOf<MypageData>()
@@ -48,11 +48,11 @@ class MypageRepository {
         return retrofit.getReservationList(false)
     }
 
-    fun cancelInquiring(id: Int): ApiLiveData<Void> {
+    fun cancelInquiring(id: Int): ApiLiveData<Any> {
         return retrofit.cancelInquiring(id)
     }
 
-    fun confirmReservation(id: Int, date: String): ApiLiveData<Void> {
+    fun confirmReservation(id: Int, date: String): ApiLiveData<Any> {
         return retrofit.confirmReservation(id, ConfirmReservationRequest(date))
     }
 

@@ -49,13 +49,13 @@ class ShopDetailViewModel(val id: Int) : ViewModel(), IPageLoaderViewModel {
         val data = dataLiveData.value
 
         if (data is ApiStatus.Success){
-            return data.data.profileImgList.toTypedArray()
+            return data.data!!.profileImgList.toTypedArray()
         }
 
         return arrayOf()
     }
 
-    fun inquireShop() : ApiLiveData<Void> {
+    fun inquireShop() : ApiLiveData<Any> {
         return repository.inquireShop(id)
     }
 

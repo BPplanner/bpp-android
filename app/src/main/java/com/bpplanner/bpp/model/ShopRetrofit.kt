@@ -41,7 +41,7 @@ interface ShopRetrofit {
     @POST("/reservations/shops/{id}")
     fun inquireShop(
         @Path("id") id: Int,
-    ): ApiLiveData<Void>
+    ): ApiLiveData<Any>
 
 }
 

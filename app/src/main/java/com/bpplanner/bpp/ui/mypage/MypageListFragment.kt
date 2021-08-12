@@ -88,7 +88,7 @@ class MypageListFragment : BaseFragment<RecyclerviewBinding>() {
         viewModel.getInquiringList().observe(viewLifecycleOwner, {
             when (it) {
                 is ApiStatus.Success -> {
-                    adapter.setData(it.data)
+                    adapter.setData(it.data!!)
                     adapter.notifyDataSetChanged()
                 }
                 is ApiStatus.Error -> {

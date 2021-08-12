@@ -70,7 +70,7 @@ class PortfolioListFragment : BaseFragment<FragmentShopDetailConceptBinding>() {
         viewModel.conceptListLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is ApiStatus.Success -> {
-                    adapter.setData(it.data)
+                    adapter.setData(it.data!!)
                     loadingAdapter.setVisibleLoading(!viewModel.isFinishList())
                     loadingAdapter.notifyDataSetChanged()
                 }

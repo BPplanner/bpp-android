@@ -27,22 +27,19 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
             }
 
             override fun onResponse(call: Call<R>, response: Response<R>) {
-                val code = response.code()
-                if (response.isSuccessful) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        liveData.value = ApiStatus.Success(code, response.body()!!)
+                CoroutineScope(Dispatchers.Main).launch {
+                    val code = response.code()
+                    if (response.isSuccessful) {
+                        liveData.value = ApiStatus.Success(code, response.body())
                         return@launch
                     }
-                }
-                when (response.code()) {
-                    else -> {
-                        CoroutineScope(Dispatchers.Main).launch {
+                    when (response.code()) {
+                        else -> {
                             liveData.value = ApiStatus.Error(code, response.message())
                             return@launch
                         }
                     }
                 }
-
             }
         })
     }
@@ -61,7 +58,7 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
             require(rawObservableType == ApiStatus::class.java) { "type must be a resource" }
             require(observableType is ParameterizedType) { "resource must be parameterized" }
             val bodyType = getParameterUpperBound(0, observableType)
-            return LiveDataCallAdapter<Any?>(
+            return LiveDataCallAdapter<Any>(
                 bodyType
             )
         }

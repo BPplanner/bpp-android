@@ -34,8 +34,8 @@ class PageLoader<T> {
                 callback?.onLoading()
             }
 
-            override fun onSuccess(code: Int, data: C) {
-                isFinish = data.isFinish()
+            override fun onSuccess(code: Int, data: C?) {
+                isFinish = data!!.isFinish()
                 list.addAll(data.getList())
                 mediatorLiveData.value = ApiStatus.Success(code, list)
 

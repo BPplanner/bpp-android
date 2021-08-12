@@ -15,12 +15,12 @@ interface ReservationRetrofit {
     @DELETE("/reservations/{id}")
     fun cancelInquiring(
         @Path("id")id :Int
-    ): ApiLiveData<Void>
+    ): ApiLiveData<Any>
 
     @PATCH("/reservations/{id}")
     fun confirmReservation(
         @Path("id")id :Int,
         @Body date: ConfirmReservationRequest
-    ): ApiLiveData<Void>
+    ): ApiLiveData<Any>
 }
 

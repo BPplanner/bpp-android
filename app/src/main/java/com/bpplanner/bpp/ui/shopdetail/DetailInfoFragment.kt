@@ -43,7 +43,7 @@ class DetailInfoFragment : BaseFragment<FragmentShopDetailInfoBinding>() {
         viewModel.dataLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is ApiStatus.Success -> {
-                    bind(it.data)
+                    bind(it.data!!)
                 }
             }
         })

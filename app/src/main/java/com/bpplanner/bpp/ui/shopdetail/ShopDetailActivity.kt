@@ -120,7 +120,7 @@ class ShopDetailActivity : BaseActivity() {
         viewModel.getDetailData().observe(this, Observer {
             when (it) {
                 is ApiStatus.Success -> {
-                    val data = it.data
+                    val data = it.data!!
                     Glide.with(binding.logo)
                         .load(data.logo)
                         .apply(RequestOptions().circleCrop())
