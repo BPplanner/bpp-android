@@ -1,10 +1,7 @@
 package com.bpplanner.bpp.ui.mypage
 
 import androidx.lifecycle.Observer
-import com.bpplanner.bpp.dto.ConfirmReservationRequest
-import com.bpplanner.bpp.dto.InquiringList
-import com.bpplanner.bpp.dto.MypageData
-import com.bpplanner.bpp.dto.MypageResponse
+import com.bpplanner.bpp.dto.*
 import com.bpplanner.bpp.model.base.ApiLiveData
 import com.bpplanner.bpp.model.base.ApiStatus
 import com.bpplanner.bpp.model.base.MediatorApiLiveData
@@ -44,8 +41,35 @@ class MypageRepository {
         return mediator
     }
 
-    fun getReservationList(): ApiLiveData<MypageResponse> {
-        return retrofit.getReservationList(false)
+    fun getReservationList(): ApiLiveData<ReservationList> {
+        val mediator = MediatorApiLiveData<ReservationList>()
+
+        val liveData = retrofit.getReservationList(false)
+        mediator.addSource(liveData, Observer {
+            when (it) {
+                is ApiStatus.Success -> {
+                    val list = it.data!!.list
+
+                    val reservationList = mutableListOf<MypageData>()
+                    val expireList = mutableListOf<MypageData>()
+
+                    for (item in list) {
+                        when (item.state) {
+                            1 -> reservationList.add(item)
+                            2 -> expireList.add(item)
+                        }
+                    }
+
+                    val data = ReservationList(it.data.remainingDays, reservationList, expireList)
+                    mediator.value = ApiStatus.Success(it.code, data)
+                }
+                else -> {
+                    mediator.value = it as ApiStatus<ReservationList>
+                }
+            }
+        })
+
+        return mediator
     }
 
     fun cancelInquiring(id: Int): ApiLiveData<Any> {

@@ -58,7 +58,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return MypageListFragment()
+            when (position) {
+                1 -> return ReservationListFragment()
+                else -> return InquiringListFragment()
+            }
         }
     }
 

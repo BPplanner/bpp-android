@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             .add(R.id.main_fragment, myPageFragment)
             .commit()
 
-        gotoRecommend()
+        gotoMain()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -56,16 +56,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         return true
     }
 
-    private fun gotoRecommend() {
+    fun gotoMain() {
         binding.bottomNavigation.selectedItemId = R.id.menu_home
-    }
-
-    private fun gotoSearch() {
-        binding.bottomNavigation.selectedItemId = R.id.menu_concept
-    }
-
-    private fun gotoRecord() {
-        binding.bottomNavigation.selectedItemId = R.id.menu_mypage
     }
 
 

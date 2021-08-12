@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bpplanner.bpp.R
 import com.bpplanner.bpp.databinding.ItemInquiringBinding
 import com.bpplanner.bpp.databinding.ItemTitleBinding
-import com.bpplanner.bpp.dto.ConceptData
 import com.bpplanner.bpp.dto.InquiringList
 import com.bpplanner.bpp.dto.MypageData
 import com.bumptech.glide.Glide
 
-class MypageAdapter :
+class InquiringAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data: InquiringList? = null
@@ -62,7 +61,7 @@ class MypageAdapter :
             is TitleViewHolder -> {
                 val context = holder.binding.root.context
                 holder.bind(
-                    if (position == 0) context.getString(R.string.all_studio)
+                    if (position == 0 && data!!.studioList.isNotEmpty()) context.getString(R.string.all_studio)
                     else context.getString(R.string.all_makeup)
                 )
             }

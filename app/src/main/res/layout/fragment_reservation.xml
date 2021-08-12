@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="12dp" />
+
+    <LinearLayout
+            android:id="@+id/layout_none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="140dp"
+                android:layout_height="88dp"
+                android:src="@drawable/ic_reservation_none" />
+
+        <TextView
+                style="@style/Text.Basic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="예약을 확정한 스튜디오가 없어요" />
+
+        <TextView
+                style="@style/Text.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="예약 날짜를 입력하고 예약을 확정해보세요"
+                android:textColor="#8c8c8c" />
+    </LinearLayout>
+
+</FrameLayout>

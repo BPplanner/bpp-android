@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f8f8f8"
+            android:elevation="0dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp">
+
+        <TextView
+                style="@style/Text.Emphasize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="촬영까지 " />
+
+        <TextView
+                android:id="@+id/day"
+                style="@style/Text.Emphasize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main"
+                tools:text="24" />
+
+        <TextView
+                style="@style/Text.Emphasize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일 남았어요!" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
